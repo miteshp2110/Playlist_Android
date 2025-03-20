@@ -25,6 +25,9 @@ android {
         val googleClientId = localProperties.getProperty("GOOGLE_CLIENT_ID") ?: "default_client_id"
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$googleClientId\"")
 
+        val tokenKey = localProperties.getProperty("TOKEN_KEY") ?: "tokenKey"
+        buildConfigField("String", "TOKEN_KEY", "\"$tokenKey\"")
+
         applicationId = "com.xceptions.playlist"
         minSdk = 31
         targetSdk = 34
@@ -68,4 +71,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:+")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:+")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:+")
+    implementation("androidx.security:security-crypto:+")
 }
