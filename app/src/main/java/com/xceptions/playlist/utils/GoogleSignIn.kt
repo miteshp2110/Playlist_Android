@@ -10,11 +10,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.xceptions.playlist.BuildConfig
+import com.xceptions.playlist.model.userauth.AuthRequest
+import androidx.activity.viewModels
+import com.xceptions.playlist.repository.AuthRepository
+import com.xceptions.playlist.viewmodel.AuthViewModel
 
 
 class GoogleSignIn(private val context: Context) {
 
-
+    private val authRepository:AuthRepository =AuthRepository()
     private val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
         .requestEmail()
@@ -33,16 +37,33 @@ class GoogleSignIn(private val context: Context) {
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
 
             val idToken = account.idToken
-            val email = account.email
-            val profilePicUri = account.photoUrl
 
-            Log.d("tester", "ID: ${account.id}")
-            Log.d("tester", "Email: $email")
-            Log.d("tester", "ID Token: $idToken")
-            Log.d("tester", "Profile: $profilePicUri")
+            val request = AuthRequest(idToken.toString())
+
+            authRepository.authenticateUser(request).observeForever{response ->
+                if(response==null){
+                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    if(response.Message=="isAdmin"){
+                        // Send to Admin login fragment
+                        Toast.makeText(context,"User is admin",Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        // Send to Home Activity
+                        Toast.makeText(context,"Welcome ${response.name}",Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+
+            }
+
+
+
+
 
         } catch (e: ApiException) {
-            Log.e("tester", "Sign-In Failed: ${e.statusCode}", e)
+//            Log.e("tester", "Sign-In Failed: ${e.statusCode}", e)
             Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
         }
     }
