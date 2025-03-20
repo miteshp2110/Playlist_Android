@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pink3">#F7D1D1</color>
+    <color name="pink2">#FCE8E8</color>
+    <color name="pink4">#E96F6F</color>
+    <color name="pink1">#FFF5F5</color>
+    <color name="inactive_grey">#7B7B7B</color>
+    <color name="seek_bar_bg">#B1A4A4</color>
+
+
+
+</resources>
