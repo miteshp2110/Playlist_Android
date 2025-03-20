@@ -3,6 +3,7 @@ package com.xceptions.playlist.utils
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,21 +27,23 @@ class GoogleSignIn(private val context: Context) {
     }
 
 
-    fun handleSignInResult(task: Task<GoogleSignInAccount>) {
+    fun handleSignInResult(task: Task<GoogleSignInAccount>,context: Context) {
         Log.d("tester","handle")
         try {
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
 
             val idToken = account.idToken
             val email = account.email
-
+            val profilePicUri = account.photoUrl
 
             Log.d("tester", "ID: ${account.id}")
             Log.d("tester", "Email: $email")
             Log.d("tester", "ID Token: $idToken")
+            Log.d("tester", "Profile: $profilePicUri")
 
         } catch (e: ApiException) {
             Log.e("tester", "Sign-In Failed: ${e.statusCode}", e)
+            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
         }
     }
 
