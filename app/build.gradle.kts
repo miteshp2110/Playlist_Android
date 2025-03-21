@@ -8,6 +8,8 @@ plugins {
 android {
     buildFeatures {
         buildConfig = true
+        dataBinding = true
+        viewBinding = true
     }
     namespace = "com.xceptions.playlist"
     compileSdk = 35
@@ -72,4 +74,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:+")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:+")
     implementation("androidx.security:security-crypto:+")
+    implementation("androidx.navigation:navigation-fragment-ktx:+")
+    implementation("androidx.navigation:navigation-ui-ktx:+")
 }

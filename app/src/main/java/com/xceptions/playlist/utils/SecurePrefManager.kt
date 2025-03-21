@@ -5,6 +5,7 @@ import android.media.session.MediaSession.Token
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.xceptions.playlist.BuildConfig
+import org.json.JSONObject
 
 object SecurePrefManager {
     private const val PREFS_FILE_NAME = BuildConfig.TOKEN_KEY
@@ -26,17 +27,35 @@ object SecurePrefManager {
     fun getJwtToken(context: Context):String?{
         return getSharedPrefs(context).getString("JWT_TOKEN",null)
     }
-    fun deleteJwtToken(context: Context){
+    private fun deleteJwtToken(context: Context){
         getSharedPrefs(context).edit().remove("JWT_TOKEN").apply()
     }
     fun saveUserInfo(context: Context,name:String,email:String,profile_url:String){
-        getSharedPrefs(context).edit().putStringSet("userInfo",mutableSetOf(name,email,profile_url))
+        val userInfoJson = JSONObject().apply {
+            put("name", name)
+            put("email", email)
+            put("profile_url", profile_url)
+        }.toString()
+
+        getSharedPrefs(context).edit().putString("userInfo", userInfoJson).apply()
     }
-    fun getUserInfo(context: Context): MutableSet<String>? {
-        return getSharedPrefs(context).getStringSet("userInfo",null)
+    fun getUserInfo(context: Context): Map<String, String?> {
+        val sharedPrefs = getSharedPrefs(context)
+        val userInfoJson = sharedPrefs.getString("userInfo", null)
+
+        return if (userInfoJson != null) {
+            val jsonObject = JSONObject(userInfoJson)
+            mapOf(
+                "name" to jsonObject.optString("name", ""),
+                "email" to jsonObject.optString("email", ""),
+                "profile_url" to jsonObject.optString("profile_url", "")
+            )
+        } else {
+            emptyMap()
+        }
     }
-    fun deleteUserInfo(context: Context){
-        getSharedPrefs(context).edit().remove("userInfo")
+    private fun deleteUserInfo(context: Context){
+        getSharedPrefs(context).edit().remove("userInfo").apply()
     }
 
     fun removeAllDetailsFromMemory(context: Context){

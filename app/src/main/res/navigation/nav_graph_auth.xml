@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_auth"
+    app:startDestination="@id/getStartedFragment"
+    >
+
+    <fragment
+        android:id="@+id/getStartedFragment"
+        android:name="com.xceptions.playlist.views.GetStartedFragment"
+        android:label="GetStarted">
+
+        <action
+            android:id="@+id/action_getStarted_to_adminLogin"
+            app:destination="@+id/adminLoginFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminLoginFragment"
+        android:name="com.xceptions.playlist.views.AdminLoginFragment"
+        android:label="Admin Login">
+
+    </fragment>
+
+</navigation>

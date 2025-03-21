@@ -54,8 +54,11 @@ class GoogleSignIn(private val context: Context) {
                         SecurePrefManager.saveJwtToken(context,response.token)
                         SecurePrefManager.saveUserInfo(context, response.name,response.email,response.profile_url)
                         Toast.makeText(context,"Welcome ${response.name}",Toast.LENGTH_SHORT).show()
-                        val tkn = SecurePrefManager.getJwtToken(context)
-                        Log.d("token",tkn?:"Null")
+
+
+
+
+
                     }
                 }
 
