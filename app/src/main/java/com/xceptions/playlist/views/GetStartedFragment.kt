@@ -28,14 +28,9 @@ class GetStartedFragment : Fragment() {
         _binding = FragmentGetStartedBinding.inflate(inflater,container,false)
 
         gso = GoogleSignIn(this.requireContext())
-
-        val button : Button = binding.auth
         progressBar = binding.progressBar
 
-        button.setOnClickListener{
-            progressBar.visibility=View.VISIBLE
-            startActivityForResult(gso.getIntent(),100)
-        }
+
         return binding.root
     }
 
@@ -53,7 +48,12 @@ class GetStartedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val button : Button = binding.auth
 
+        button.setOnClickListener{
+            progressBar.visibility=View.VISIBLE
+            startActivityForResult(gso.getIntent(),100)
+        }
 
     }
 

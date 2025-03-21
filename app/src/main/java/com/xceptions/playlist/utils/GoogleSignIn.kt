@@ -2,6 +2,8 @@ package com.xceptions.playlist.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -12,8 +14,13 @@ import com.google.android.gms.tasks.Task
 import com.xceptions.playlist.BuildConfig
 import com.xceptions.playlist.model.userauth.AuthRequest
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import com.xceptions.playlist.R
 import com.xceptions.playlist.repository.AuthRepository
 import com.xceptions.playlist.viewmodel.AuthViewModel
+import com.xceptions.playlist.views.AuthActivity
+import com.xceptions.playlist.views.user.UserActivity
 
 
 class GoogleSignIn(private val context: Context) {
@@ -32,7 +39,6 @@ class GoogleSignIn(private val context: Context) {
 
 
     fun handleSignInResult(task: Task<GoogleSignInAccount>,context: Context) {
-        Log.d("tester","handle")
         try {
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
 
@@ -47,18 +53,21 @@ class GoogleSignIn(private val context: Context) {
                 else{
                     if(response.Message=="isAdmin"){
                         // Send to Admin login fragment
-                        Toast.makeText(context,"User is admin",Toast.LENGTH_SHORT).show()
+                        if(context is AuthActivity){
+                            context.findNavController(R.id.nav_host_auth).navigate(R.id.action_getStarted_to_adminLogin)
+                        }
                     }
                     else{
                         // Send to Home Activity
                         SecurePrefManager.saveJwtToken(context,response.token)
                         SecurePrefManager.saveUserInfo(context, response.name,response.email,response.profile_url)
-                        Toast.makeText(context,"Welcome ${response.name}",Toast.LENGTH_SHORT).show()
+                        val userIntent = Intent(context,com.xceptions.playlist.views.user.UserActivity::class.java)
+                        userIntent.flags = FLAG_ACTIVITY_NEW_TASK
+                        context.startActivity(userIntent)
 
-
-
-
-
+                        if(context is AuthActivity){
+                            context.finish()
+                        }
                     }
                 }
 
@@ -72,6 +81,7 @@ class GoogleSignIn(private val context: Context) {
 //            Log.e("tester", "Sign-In Failed: ${e.statusCode}", e)
             Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
         }
+
     }
 
 
