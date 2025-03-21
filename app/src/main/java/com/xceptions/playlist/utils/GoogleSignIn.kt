@@ -2,9 +2,7 @@ package com.xceptions.playlist.utils
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -13,14 +11,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.xceptions.playlist.BuildConfig
 import com.xceptions.playlist.model.userauth.AuthRequest
-import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.xceptions.playlist.R
 import com.xceptions.playlist.repository.AuthRepository
-import com.xceptions.playlist.viewmodel.AuthViewModel
 import com.xceptions.playlist.views.AuthActivity
-import com.xceptions.playlist.views.user.UserActivity
 
 
 class GoogleSignIn(private val context: Context) {

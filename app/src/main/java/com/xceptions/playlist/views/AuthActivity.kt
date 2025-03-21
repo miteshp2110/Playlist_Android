@@ -18,6 +18,8 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityAuthBinding.inflate(layoutInflater)
+
+
         setContentView(binding.root)
 
 

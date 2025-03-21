@@ -58,6 +58,7 @@ object SecurePrefManager {
         getSharedPrefs(context).edit().remove("userInfo").apply()
     }
 
+
     fun removeAllDetailsFromMemory(context: Context){
         deleteJwtToken(context)
         deleteUserInfo(context)

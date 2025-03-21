@@ -3,6 +3,8 @@ package com.xceptions.playlist.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.xceptions.playlist.model.adminauth.AdminAuthRequest
+import com.xceptions.playlist.model.adminauth.AdminAuthResponse
 import com.xceptions.playlist.model.userauth.AuthRequest
 import com.xceptions.playlist.model.userauth.AuthResponse
 import com.xceptions.playlist.network.RetrofitClient
@@ -42,6 +44,24 @@ class AuthRepository {
 
         })
 
+        return responseLiveData
+    }
+
+    fun loginAdmin(request : AdminAuthRequest) : LiveData<AdminAuthResponse?>{
+        val responseLiveData = MutableLiveData<AdminAuthResponse>()
+        authApiService.loginAdmin(request).enqueue(object : Callback<AdminAuthResponse>{
+            override fun onResponse(call: Call<AdminAuthResponse>, response: Response<AdminAuthResponse>) {
+                if(response.isSuccessful){
+                    Log.d("tester",response.body().toString())
+                    responseLiveData.value= response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<AdminAuthResponse>, t: Throwable) {
+                Log.d("tester",t.toString())
+            }
+
+        })
         return responseLiveData
     }
 }
