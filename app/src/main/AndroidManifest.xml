@@ -26,8 +26,12 @@
             android:name=".views.user.UserActivity"
             android:exported="true"
             >
+        </activity>
 
-
+        <activity
+            android:name=".views.admin.AdminActivity"
+            android:exported="true"
+            >
         </activity>
     </application>
 

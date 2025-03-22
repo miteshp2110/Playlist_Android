@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -76,4 +77,5 @@ dependencies {
     implementation("androidx.security:security-crypto:+")
     implementation("androidx.navigation:navigation-fragment-ktx:+")
     implementation("androidx.navigation:navigation-ui-ktx:+")
+
 }

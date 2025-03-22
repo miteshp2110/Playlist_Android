@@ -28,6 +28,7 @@
         android:inputType="textEmailAddress"
         android:layout_marginTop="100sp"
         android:id="@+id/adminEmail"
+        android:enabled="false"
         />
 
     <EditText

@@ -20,6 +20,10 @@
         android:name="com.xceptions.playlist.views.AdminLoginFragment"
         android:label="Admin Login">
 
+        <argument
+            android:name="adminEmail"
+            app:argType="string"/>
+
     </fragment>
 
 </navigation>

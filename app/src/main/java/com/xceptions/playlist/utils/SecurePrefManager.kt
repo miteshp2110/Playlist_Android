@@ -57,11 +57,22 @@ object SecurePrefManager {
     private fun deleteUserInfo(context: Context){
         getSharedPrefs(context).edit().remove("userInfo").apply()
     }
+    fun setAdmin(context: Context,value:Boolean){
+        getSharedPrefs(context).edit().putBoolean("isAdmin",true).apply()
+    }
+    fun isAdmin(context: Context){
+        getSharedPrefs(context).getBoolean("isAdmin",false)
+    }
+    private fun deleteAdmin(context: Context){
+        getSharedPrefs(context).edit().remove("isAdmin").apply()
+    }
+
 
 
     fun removeAllDetailsFromMemory(context: Context){
         deleteJwtToken(context)
         deleteUserInfo(context)
+        deleteAdmin(context)
     }
 
 

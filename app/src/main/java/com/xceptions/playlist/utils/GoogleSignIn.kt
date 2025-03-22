@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.xceptions.playlist.R
 import com.xceptions.playlist.repository.AuthRepository
 import com.xceptions.playlist.views.AuthActivity
+import com.xceptions.playlist.views.GetStartedFragmentDirections
 
 
 class GoogleSignIn(private val context: Context) {
@@ -48,7 +49,8 @@ class GoogleSignIn(private val context: Context) {
                     if(response.Message=="isAdmin"){
                         // Send to Admin login fragment
                         if(context is AuthActivity){
-                            context.findNavController(R.id.nav_host_auth).navigate(R.id.action_getStarted_to_adminLogin)
+                            val action = GetStartedFragmentDirections.actionGetStartedToAdminLogin(response.email)
+                            context.findNavController(R.id.nav_host_auth).navigate(action)
                         }
                     }
                     else{
