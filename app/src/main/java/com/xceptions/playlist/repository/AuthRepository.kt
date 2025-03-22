@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.xceptions.playlist.model.adminauth.AdminAuthRequest
 import com.xceptions.playlist.model.adminauth.AdminAuthResponse
+import com.xceptions.playlist.model.userauth.AuthInit
 import com.xceptions.playlist.model.userauth.AuthRequest
 import com.xceptions.playlist.model.userauth.AuthResponse
 import com.xceptions.playlist.network.RetrofitClient
@@ -12,6 +13,7 @@ import com.xceptions.playlist.network.auth.AuthApiInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.properties.Delegates
 
 class AuthRepository {
 
@@ -70,5 +72,22 @@ class AuthRepository {
 
         })
         return responseLiveData
+    }
+
+    fun init() : Boolean?{
+        var resp : Boolean? = null
+        authApiService.init().enqueue(object : Callback<AuthInit>{
+            override fun onResponse(call: Call<AuthInit>, response: Response<AuthInit>) {
+                if(response.isSuccessful){
+                    resp = true
+                }
+            }
+
+            override fun onFailure(p0: Call<AuthInit>, p1: Throwable) {
+                resp = false
+            }
+
+        })
+        return resp
     }
 }

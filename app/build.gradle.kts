@@ -77,5 +77,7 @@ dependencies {
     implementation("androidx.security:security-crypto:+")
     implementation("androidx.navigation:navigation-fragment-ktx:+")
     implementation("androidx.navigation:navigation-ui-ktx:+")
+    implementation("com.squareup.okhttp3:okhttp:+")
+    implementation("androidx.core:core-splashscreen:+")
 
 }

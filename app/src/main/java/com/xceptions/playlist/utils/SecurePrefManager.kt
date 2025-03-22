@@ -60,8 +60,8 @@ object SecurePrefManager {
     fun setAdmin(context: Context,value:Boolean){
         getSharedPrefs(context).edit().putBoolean("isAdmin",true).apply()
     }
-    fun isAdmin(context: Context){
-        getSharedPrefs(context).getBoolean("isAdmin",false)
+    fun isAdmin(context: Context):Boolean{
+        return getSharedPrefs(context).getBoolean("isAdmin",false)
     }
     private fun deleteAdmin(context: Context){
         getSharedPrefs(context).edit().remove("isAdmin").apply()
