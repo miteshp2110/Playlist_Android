@@ -3,11 +3,14 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
     buildFeatures {
         buildConfig = true
+        dataBinding = true
+        viewBinding = true
     }
     namespace = "com.xceptions.playlist"
     compileSdk = 35
@@ -24,6 +27,9 @@ android {
         }
         val googleClientId = localProperties.getProperty("GOOGLE_CLIENT_ID") ?: "default_client_id"
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$googleClientId\"")
+
+        val tokenKey = localProperties.getProperty("TOKEN_KEY") ?: "tokenKey"
+        buildConfigField("String", "TOKEN_KEY", "\"$tokenKey\"")
 
         applicationId = "com.xceptions.playlist"
         minSdk = 31
@@ -68,4 +74,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:+")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:+")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:+")
+    implementation("androidx.security:security-crypto:+")
+    implementation("androidx.navigation:navigation-fragment-ktx:+")
+    implementation("androidx.navigation:navigation-ui-ktx:+")
+
 }
