@@ -16,6 +16,8 @@ import com.xceptions.playlist.R
 import com.xceptions.playlist.repository.AuthRepository
 import com.xceptions.playlist.views.AuthActivity
 import com.xceptions.playlist.views.GetStartedFragmentDirections
+import com.xceptions.playlist.views.admin.AdminActivity
+import com.xceptions.playlist.views.user.UserActivity
 
 
 class GoogleSignIn(private val context: Context) {
@@ -30,6 +32,24 @@ class GoogleSignIn(private val context: Context) {
 
     fun getIntent():Intent{
         return googleSignInClient.signInIntent
+    }
+
+    fun logout(context: Context){
+        googleSignInClient.signOut()
+            .addOnCompleteListener {
+                SecurePrefManager.removeAllDetailsFromMemory(context)
+                val authIntent : Intent = Intent(context,com.xceptions.playlist.views.AuthActivity::class.java)
+                context.startActivity(authIntent)
+                if(context is AdminActivity){
+                    context.finish()
+                }
+                else{
+                    if(context is UserActivity){
+                        context.finish()
+                    }
+                }
+
+            }
     }
 
 

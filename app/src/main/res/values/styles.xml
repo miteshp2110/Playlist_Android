@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomActiveIndicator" parent="Base.Theme.Playlist">
+        <item name="android:color">@color/white</item> <!-- Change the color -->
+        <item name="android:width">50dp</item> <!-- Adjust width -->
+        <item name="android:height">100dp</item> <!-- Adjust height -->
+<!--        <item name="android:shapeAppearance">@style/CustomActiveIndicatorShape</item> &lt;!&ndash; Change shape &ndash;&gt;-->
+    </style>
+
+    <!-- Custom Shape (Optional) -->
+    <style name="CustomActiveIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item> <!-- Adjust radius for roundness -->
+    </style>
+</resources>

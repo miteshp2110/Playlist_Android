@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Active state: when selected -->
+    <item android:state_selected="true" android:drawable="@drawable/rounded_border" />
+    <!-- Default state: transparent background -->
+    <item android:drawable="@android:color/transparent" />
+</selector>
