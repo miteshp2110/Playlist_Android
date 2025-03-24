@@ -4,21 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bebas_neue"
-        android:text="Admin Home"
-        android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="50sp"
-        android:layout_marginTop="50sp"
-        android:layout_centerHorizontal="true" />
 
-    <View
+
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <LinearLayout
@@ -37,11 +29,11 @@
 
         <!-- Home Navigation Item -->
         <LinearLayout
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_addsong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_nav_item_background"
-            android:padding="7dp"
+            android:padding="10dp"
 
             android:elevation="3dp"
             android:layout_margin="7dp"
@@ -61,11 +53,11 @@
 
         <!-- Playlist Navigation Item -->
         <LinearLayout
-            android:id="@+id/nav_playlist"
+            android:id="@+id/nav_addartist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_nav_item_background"
-            android:padding="7dp"
+            android:padding="10dp"
             android:elevation="3dp"
             android:layout_margin="7dp"
             android:gravity="center">
@@ -88,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_nav_item_background"
-            android:padding="7dp"
+            android:padding="10dp"
             android:elevation="3dp"
             android:layout_margin="7dp"
             android:gravity="center">
@@ -110,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_nav_item_background"
-            android:padding="7dp"
+            android:padding="10dp"
             android:elevation="3dp"
             android:layout_margin="7dp"
             android:gravity="center">
