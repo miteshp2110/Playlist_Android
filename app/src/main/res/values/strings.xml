@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Playlist</string>
     <string name="logout">Logout</string>
+    <string name="dot">.</string>
+    <string name="add_language">Add Language</string>
+    <string name="enter_language">Enter Language</string>
+    <string name="add">Add</string>
 </resources>
