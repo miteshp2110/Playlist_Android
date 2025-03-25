@@ -8,12 +8,11 @@ import com.xceptions.playlist.model.adminauth.AdminAuthResponse
 import com.xceptions.playlist.model.userauth.AuthInit
 import com.xceptions.playlist.model.userauth.AuthRequest
 import com.xceptions.playlist.model.userauth.AuthResponse
-import com.xceptions.playlist.network.RetrofitClient
+import com.xceptions.playlist.network.auth.RetrofitClient
 import com.xceptions.playlist.network.auth.AuthApiInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.properties.Delegates
 
 class AuthRepository {
 
