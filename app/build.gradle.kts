@@ -31,6 +31,9 @@ android {
         val tokenKey = localProperties.getProperty("TOKEN_KEY") ?: "tokenKey"
         buildConfigField("String", "TOKEN_KEY", "\"$tokenKey\"")
 
+        val BASE_URL = localProperties.getProperty("BASE_URL") ?: "/"
+        buildConfigField("String","BASE_URL","\"$BASE_URL\"")
+
         applicationId = "com.xceptions.playlist"
         minSdk = 31
         targetSdk = 34
