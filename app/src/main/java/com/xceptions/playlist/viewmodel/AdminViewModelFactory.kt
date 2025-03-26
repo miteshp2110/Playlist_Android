@@ -9,6 +9,9 @@ class AdminViewModelFactory(private val token:String): ViewModelProvider.Factory
         if(modelClass.isAssignableFrom(LanguageViewModel::class.java)){
             return LanguageViewModel(token) as T
         }
+        if (modelClass.isAssignableFrom(GenreViewModel::class.java)){
+            return GenreViewModel(token) as T
+        }
         throw IllegalArgumentException("Unknown Agrument")
     }
 }
