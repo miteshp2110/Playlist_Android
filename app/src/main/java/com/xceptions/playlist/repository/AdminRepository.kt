@@ -47,7 +47,6 @@ class AdminRepository(token:String) {
                 _allGenre.postValue(response.body())
             }
             else{
-                Log.d("genre","error")
                 _allGenre.postValue(null)
             }
 
@@ -62,15 +61,40 @@ class AdminRepository(token:String) {
 
         apiService.addLanguage(body).enqueue(object : Callback<MessageResponse>{
             override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
-                Log.d("addLanguage",response.toString())
                 if(response.isSuccessful){
                     responseLiveData.value = response.body()
+                }
+                else{
+                    responseLiveData.value = null
                 }
 
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                 Log.d("addLanguage","err: ${t.message}")
+                responseLiveData.value = null
+            }
+
+        })
+        return responseLiveData
+    }
+
+    fun addGenre(body : NameRequestBody):LiveData<MessageResponse?>{
+        val responseLiveData = MutableLiveData<MessageResponse?>()
+
+        apiService.addGenre(body).enqueue(object : Callback<MessageResponse>{
+            override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                if(response.isSuccessful){
+                    responseLiveData.value = response.body()
+                }
+                else{
+                    responseLiveData.value = null
+                }
+
+            }
+
+            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                Log.d("addGenre","err: ${t.message}")
                 responseLiveData.value = null
             }
 

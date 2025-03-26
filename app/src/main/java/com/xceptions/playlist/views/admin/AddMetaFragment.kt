@@ -1,10 +1,12 @@
 package com.xceptions.playlist.views.admin
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xceptions.playlist.databinding.FragmentAdminAddmetaBinding
 import com.xceptions.playlist.model.Languages.GetLanguages
-import com.xceptions.playlist.model.Languages.GetLanguagesItem
 import com.xceptions.playlist.model.NameRequestBody
 import com.xceptions.playlist.model.genre.GetGenre
 import com.xceptions.playlist.utils.GenreAdapter
@@ -58,22 +59,54 @@ class AddMetaFragment: Fragment() {
         }
         addMetaViewModel.addLanguageResponse.observe(this.viewLifecycleOwner){response ->
             if(response == null){
-                Toast.makeText(this.requireContext(),"Failed to add",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.requireContext(),"Language Already Exist",Toast.LENGTH_SHORT).show()
             }
             else{
                 Toast.makeText(this.requireContext(),"Added New Language",Toast.LENGTH_SHORT).show()
                 addMetaViewModel.getAllLanguages()
-
             }
+
+        }
+
+        addMetaViewModel.addGenreResponse.observe(this.viewLifecycleOwner){response ->
+            if(response == null){
+                Toast.makeText(this.requireContext(),"Genre Already Exist",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this.requireContext(),"Added New Genre",Toast.LENGTH_SHORT).show()
+                addMetaViewModel.getAllGenre()
+            }
+
         }
 
         binding.addLanguageButton.setOnClickListener {
             val newLanguage : String = binding.editTextLanguageName.text.toString()
             if(newLanguage == ""){
-
                 Toast.makeText(this.requireContext(),"Language Cannot be Empty",Toast.LENGTH_SHORT).show()
+
             }
-            addMetaViewModel.addLanguage(NameRequestBody(newLanguage),this.viewLifecycleOwner)
+            else{
+                addMetaViewModel.addLanguage(NameRequestBody(newLanguage),this.viewLifecycleOwner)
+                binding.editTextLanguageName.setText("")
+                binding.editTextLanguageName.clearFocus()
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.editTextLanguageName.windowToken,0)
+            }
+        }
+
+        binding.addGenreButton.setOnClickListener {
+            val newGenre : String = binding.editTextGenreName.text.toString()
+            if(newGenre == ""){
+                Toast.makeText(this.requireContext(),"Genre Cannot be Empty",Toast.LENGTH_SHORT).show()
+
+            }
+            else{
+                addMetaViewModel.addGenre(NameRequestBody(newGenre),this.viewLifecycleOwner)
+                binding.editTextGenreName.setText("")
+                binding.editTextGenreName.clearFocus()
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.editTextGenreName.windowToken,0)
+            }
         }
 
         return binding.root

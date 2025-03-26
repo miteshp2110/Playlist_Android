@@ -22,4 +22,7 @@ interface AdminApiInterface {
 
     @POST("languages")
     fun addLanguage(@Body request : NameRequestBody) : Call<MessageResponse>
+
+    @POST("genere")
+    fun addGenre(@Body request: NameRequestBody) : Call<MessageResponse>
 }

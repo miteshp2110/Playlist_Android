@@ -21,6 +21,8 @@ class AddMetaViewModel (token:String): ViewModel() {
     val allLanguagesData : LiveData<GetLanguages?> = adminRepository.allLanguages
     private val _addLanguage = MutableLiveData<MessageResponse?>()
     val addLanguageResponse : LiveData<MessageResponse?> = _addLanguage
+    private val _addGenre = MutableLiveData<MessageResponse?>()
+    val addGenreResponse : LiveData<MessageResponse?> = _addGenre
 
     init {
         getAllLanguages()
@@ -41,6 +43,12 @@ class AddMetaViewModel (token:String): ViewModel() {
     fun addLanguage(requestBody: NameRequestBody,context: LifecycleOwner){
         adminRepository.addLanguage(requestBody).observe(context){ response ->
             _addLanguage.value = response
+        }
+    }
+
+    fun addGenre(requestBody: NameRequestBody,context: LifecycleOwner){
+        adminRepository.addGenre(requestBody).observe(context){response ->
+            _addGenre.value = response
         }
     }
 
