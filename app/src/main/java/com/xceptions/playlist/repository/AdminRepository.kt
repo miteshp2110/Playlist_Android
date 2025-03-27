@@ -8,6 +8,7 @@ import com.xceptions.playlist.model.Languages.GetLanguages
 import com.xceptions.playlist.model.MessageResponse
 import com.xceptions.playlist.model.NameRequestBody
 import com.xceptions.playlist.model.genre.GetGenre
+import com.xceptions.playlist.model.song.GetAllSongs
 import com.xceptions.playlist.network.admin.AdminApiInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +24,10 @@ class AdminRepository(token:String) {
 
     private val _allGenre = MutableLiveData<GetGenre?>()
     val allGenre :LiveData<GetGenre?> = _allGenre
+
+    private val _allSongs = MutableLiveData<GetAllSongs?>()
+    val allSongs : LiveData<GetAllSongs?> = _allSongs
+
 
     suspend fun getAllLanguages(){
         try {
@@ -100,6 +105,24 @@ class AdminRepository(token:String) {
 
         })
         return responseLiveData
+    }
+
+    suspend fun getAllSongs(page:Int){
+
+        try{
+            val response : Response<GetAllSongs> = apiService.getAllSongs(page)
+            Log.d("addsongs","in repo:  ${response.body()}")
+            if(response.isSuccessful){
+                _allSongs.postValue(response.body())
+            }
+            else{
+                _allSongs.postValue(null)
+            }
+
+        }
+        catch(e:Exception){
+            _allSongs.postValue(null)
+        }
     }
 
 }

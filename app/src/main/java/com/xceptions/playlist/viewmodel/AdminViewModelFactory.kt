@@ -10,6 +10,10 @@ class AdminViewModelFactory(private val token:String): ViewModelProvider.Factory
         if (modelClass.isAssignableFrom(AddMetaViewModel::class.java)){
             return AddMetaViewModel(token) as T
         }
+
+        if(modelClass.isAssignableFrom(AddSongViewModel::class.java)){
+            return AddSongViewModel(token) as T
+        }
         throw IllegalArgumentException("Unknown Agrument")
     }
 }
