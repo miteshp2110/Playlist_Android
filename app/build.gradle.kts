@@ -82,5 +82,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:+")
     implementation("com.squareup.okhttp3:okhttp:+")
     implementation("androidx.core:core-splashscreen:+")
+    implementation("com.squareup.picasso:picasso:+")
+
 
 }

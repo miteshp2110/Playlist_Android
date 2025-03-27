@@ -28,7 +28,7 @@ interface AdminApiInterface {
     @POST("genere")
     fun addGenre(@Body request: NameRequestBody) : Call<MessageResponse>
 
-    @GET("song/all")
+    @GET("song/all/mobile")
     suspend fun getAllSongs(@Query("page") page: Int) : Response<GetAllSongs>
 
 }

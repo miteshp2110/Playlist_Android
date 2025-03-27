@@ -1,12 +1,11 @@
 package com.xceptions.playlist.model.song
 
 data class GetAllSongsItem(
-    val artist: Int,
+    val artist: String,
     val duration: Int,
-    val genere: Int,
+    val genere: String,
     val id: Int,
-    val language: Int,
+    val language: String,
     val name: String,
-    val song_image_url: String,
-    val song_url: String
+    val song_image_url: String
 )
