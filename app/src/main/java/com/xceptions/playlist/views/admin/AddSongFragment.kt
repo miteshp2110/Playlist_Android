@@ -1,16 +1,28 @@
 package com.xceptions.playlist.views.admin
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xceptions.playlist.databinding.FragmentAdminAddsongBinding
+import com.xceptions.playlist.model.song.GetAllSongs
+import com.xceptions.playlist.utils.SecurePrefManager
+import com.xceptions.playlist.utils.SongsAdapter
+import com.xceptions.playlist.viewmodel.AddSongViewModel
+import com.xceptions.playlist.viewmodel.AdminViewModelFactory
 
 class AddSongFragment: Fragment() {
 
     private var _binding : FragmentAdminAddsongBinding? = null
     private val binding get() = _binding!!
+    private val token: String by lazy { SecurePrefManager.getJwtToken(requireContext()) ?: "null" }
+    private val addSongViewModel : AddSongViewModel by viewModels { AdminViewModelFactory(token) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,8 +31,21 @@ class AddSongFragment: Fragment() {
     ): View? {
         _binding = FragmentAdminAddsongBinding.inflate(inflater,container,false)
 
+        val songRecycler : RecyclerView = binding.songRecyclerView
+        songRecycler.layoutManager = LinearLayoutManager(this.requireContext())
 
+        addSongViewModel.allSongsResponse.observe(this.viewLifecycleOwner){data ->
+            val songAdapter  = SongsAdapter(data?: GetAllSongs())
+            songRecycler.adapter = songAdapter
+        }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//        addSongViewModel.loadSongs()
+
     }
 
     override fun onDestroyView() {

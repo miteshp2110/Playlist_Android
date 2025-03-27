@@ -4,5 +4,7 @@
     <string name="dot">.</string>
     <string name="add_language">Add Language</string>
     <string name="enter_language">Enter Language</string>
+    <string name="enter_genre">Enter Genre</string>
     <string name="add">Add</string>
+    <string name="add_genre">Add Genre</string>
 </resources>
