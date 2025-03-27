@@ -9,6 +9,7 @@ import com.xceptions.playlist.model.MessageResponse
 import com.xceptions.playlist.model.NameRequestBody
 import com.xceptions.playlist.model.genre.GetGenre
 import com.xceptions.playlist.model.song.GetAllSongs
+import com.xceptions.playlist.model.song.GetAllSongsItem
 import com.xceptions.playlist.network.admin.AdminApiInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -113,12 +114,21 @@ class AdminRepository(token:String) {
             val response : Response<GetAllSongs> = apiService.getAllSongs(page)
             Log.d("addsongs","in repo:  ${response.body()}")
             if(response.isSuccessful){
-                _allSongs.postValue(response.body())
+                if(_allSongs.value == null){
+
+                    _allSongs.postValue(response.body())
+                }
+                else{
+                    val current :GetAllSongs? = _allSongs.value
+                    response.body()?.forEach{song ->
+                        current?.add(song)
+                    }
+                    _allSongs.value = current
+                }
             }
             else{
                 _allSongs.postValue(null)
             }
-
         }
         catch(e:Exception){
             _allSongs.postValue(null)

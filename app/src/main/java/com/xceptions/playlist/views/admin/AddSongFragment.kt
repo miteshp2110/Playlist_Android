@@ -38,15 +38,14 @@ class AddSongFragment: Fragment() {
             val songAdapter  = SongsAdapter(data?: GetAllSongs())
             songRecycler.adapter = songAdapter
         }
+
+        binding.buttonLoadMore.setOnClickListener {
+            addSongViewModel.loadSongs()
+        }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-//        addSongViewModel.loadSongs()
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
