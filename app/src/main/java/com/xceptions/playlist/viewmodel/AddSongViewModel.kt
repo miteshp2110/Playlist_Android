@@ -13,12 +13,13 @@ class AddSongViewModel (token : String) : ViewModel() {
 
     private val adminRepository = AdminRepository(token)
 
+
+
     val allSongsResponse : LiveData<GetAllSongs?> = adminRepository.allSongs
     private var page : Int = 1
 
 
     init {
-        Log.d("addsongs","init with page $page")
         loadSongs()
     }
 

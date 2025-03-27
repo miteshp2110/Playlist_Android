@@ -12,5 +12,7 @@
         <item name="android:textColorPrimary">@color/pink2</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="android:windowSplashScreenBackground">@color/black</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/pink3</item>
     </style>
 </resources>
