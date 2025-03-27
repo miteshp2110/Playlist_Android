@@ -35,16 +35,20 @@ class AddSongFragment: Fragment() {
         songRecycler.layoutManager = LinearLayoutManager(this.requireContext())
 
         addSongViewModel.allSongsResponse.observe(this.viewLifecycleOwner){data ->
+            binding.songRecyclerView.visibility = View.VISIBLE
             val songAdapter  = SongsAdapter(data?: GetAllSongs())
             songRecycler.adapter = songAdapter
             val size = data?.size?:10
+            binding.buttonLoadMore.visibility = View.VISIBLE
             if(size%10 != 0){
                 binding.buttonLoadMore.visibility = View.GONE
             }
+            binding.songsProgressBar.visibility = View.GONE
         }
 
         binding.buttonLoadMore.setOnClickListener {
             addSongViewModel.loadSongs()
+            binding.songsProgressBar.visibility = View.VISIBLE
 
         }
         return binding.root

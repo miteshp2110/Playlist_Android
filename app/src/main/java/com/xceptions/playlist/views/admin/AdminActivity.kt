@@ -18,7 +18,7 @@ class AdminActivity : AppCompatActivity() {
     private val viewModel : AdminActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
