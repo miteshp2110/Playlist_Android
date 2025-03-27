@@ -20,7 +20,6 @@ class AddSongViewModel (token : String) : ViewModel() {
 
 
     init {
-        Log.d("addsongs","init with page $page")
         loadSongs()
     }
 

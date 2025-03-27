@@ -37,10 +37,15 @@ class AddSongFragment: Fragment() {
         addSongViewModel.allSongsResponse.observe(this.viewLifecycleOwner){data ->
             val songAdapter  = SongsAdapter(data?: GetAllSongs())
             songRecycler.adapter = songAdapter
+            val size = data?.size?:10
+            if(size%10 != 0){
+                binding.buttonLoadMore.visibility = View.GONE
+            }
         }
 
         binding.buttonLoadMore.setOnClickListener {
             addSongViewModel.loadSongs()
+
         }
         return binding.root
     }

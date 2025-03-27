@@ -112,7 +112,6 @@ class AdminRepository(token:String) {
 
         try{
             val response : Response<GetAllSongs> = apiService.getAllSongs(page)
-            Log.d("addsongs","in repo:  ${response.body()}")
             if(response.isSuccessful){
                 if(_allSongs.value == null){
 
