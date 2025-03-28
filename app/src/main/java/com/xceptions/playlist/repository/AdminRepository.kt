@@ -1,19 +1,27 @@
 package com.xceptions.playlist.repository
 
 import RetrofitClient
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.xceptions.playlist.model.Languages.GetLanguages
 import com.xceptions.playlist.model.MessageResponse
 import com.xceptions.playlist.model.NameRequestBody
+import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.genre.GetGenre
 import com.xceptions.playlist.model.song.GetAllSongs
 import com.xceptions.playlist.model.song.GetAllSongsItem
 import com.xceptions.playlist.network.admin.AdminApiInterface
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 
 class AdminRepository(token:String) {
@@ -28,6 +36,9 @@ class AdminRepository(token:String) {
 
     private val _allSongs = MutableLiveData<GetAllSongs?>()
     val allSongs : LiveData<GetAllSongs?> = _allSongs
+
+    private val _allArtists = MutableLiveData<GetAllArtist?>()
+    val allArtists : LiveData<GetAllArtist?> = _allArtists
 
 
     suspend fun getAllLanguages(){
@@ -133,5 +144,73 @@ class AdminRepository(token:String) {
             _allSongs.postValue(null)
         }
     }
+
+    fun addSong(name: String, languageId: String, genreId: String, artistId: String, imageUri: Uri, songUri: Uri,context: Context):LiveData<MessageResponse?>{
+
+        val nameBody = RequestBody.create("text/plain".toMediaTypeOrNull(), name)
+        val languageBody = RequestBody.create("text/plain".toMediaTypeOrNull(), languageId)
+        val genreBody = RequestBody.create("text/plain".toMediaTypeOrNull(), genreId)
+        val artistBody = RequestBody.create("text/plain".toMediaTypeOrNull(), artistId)
+
+        Log.d("addsongs", "Image URI: $imageUri, Song URI: $songUri")
+
+        val imageFile = uriToFile(context,imageUri)
+        val requestFileImage = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+        val imagePart = MultipartBody.Part.createFormData("song_image", imageFile.name, requestFileImage)
+
+        val songFile = uriToFile(context,songUri)
+        val requestFileSong = RequestBody.create("audio/mpeg".toMediaTypeOrNull(), songFile)
+        val songPart = MultipartBody.Part.createFormData("song", songFile.name, requestFileSong)
+
+        val addSongsResponse = MutableLiveData<MessageResponse?>()
+
+        apiService.addSong(nameBody,languageBody,genreBody,artistBody,imagePart,songPart).enqueue(object : Callback<MessageResponse>{
+            override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                Log.d("addsongs","add song")
+                if(response.isSuccessful){
+                    Log.d("addsongs","added song")
+                    addSongsResponse.value = response.body()
+                }
+                else{
+                    addSongsResponse.value = null
+                }
+
+            }
+
+            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                Log.d("addsongs","err: ${t.message}")
+                addSongsResponse.value = null
+            }
+
+        })
+        return addSongsResponse
+    }
+
+    suspend fun getAllArtists(){
+        try{
+            val response : Response<GetAllArtist> = apiService.getAllArtists()
+            if(response.isSuccessful){
+                _allArtists.postValue(response.body())
+            }
+            else{
+                _allArtists.postValue(null)
+            }
+        }
+        catch (e:Exception){
+            _allArtists.postValue(null)
+        }
+    }
+
+    fun uriToFile(context: Context, uri: Uri): File {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val tempFile = File.createTempFile("temp", null, context.cacheDir)
+        if (inputStream != null) {
+            tempFile.outputStream().use { output ->
+                inputStream.copyTo(output)
+            }
+        }
+        return tempFile
+    }
+
 
 }
