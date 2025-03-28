@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.xceptions.playlist.model.Languages.GetLanguages
 import com.xceptions.playlist.model.MessageResponse
 import com.xceptions.playlist.model.NameRequestBody
+import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.genre.GetGenre
 import com.xceptions.playlist.model.song.GetAllSongs
 import com.xceptions.playlist.model.song.GetAllSongsItem
@@ -35,6 +36,9 @@ class AdminRepository(token:String) {
 
     private val _allSongs = MutableLiveData<GetAllSongs?>()
     val allSongs : LiveData<GetAllSongs?> = _allSongs
+
+    private val _allArtists = MutableLiveData<GetAllArtist?>()
+    val allArtists : LiveData<GetAllArtist?> = _allArtists
 
 
     suspend fun getAllLanguages(){
@@ -148,11 +152,13 @@ class AdminRepository(token:String) {
         val genreBody = RequestBody.create("text/plain".toMediaTypeOrNull(), genreId)
         val artistBody = RequestBody.create("text/plain".toMediaTypeOrNull(), artistId)
 
-        val imageFile = File(FileUtils.getPath(context, imageUri))
+        Log.d("addsongs", "Image URI: $imageUri, Song URI: $songUri")
+
+        val imageFile = uriToFile(context,imageUri)
         val requestFileImage = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
         val imagePart = MultipartBody.Part.createFormData("song_image", imageFile.name, requestFileImage)
 
-        val songFile = File(FileUtils.getPath(context, songUri))
+        val songFile = uriToFile(context,songUri)
         val requestFileSong = RequestBody.create("audio/mpeg".toMediaTypeOrNull(), songFile)
         val songPart = MultipartBody.Part.createFormData("song", songFile.name, requestFileSong)
 
@@ -179,5 +185,32 @@ class AdminRepository(token:String) {
         })
         return addSongsResponse
     }
+
+    suspend fun getAllArtists(){
+        try{
+            val response : Response<GetAllArtist> = apiService.getAllArtists()
+            if(response.isSuccessful){
+                _allArtists.postValue(response.body())
+            }
+            else{
+                _allArtists.postValue(null)
+            }
+        }
+        catch (e:Exception){
+            _allArtists.postValue(null)
+        }
+    }
+
+    fun uriToFile(context: Context, uri: Uri): File {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val tempFile = File.createTempFile("temp", null, context.cacheDir)
+        if (inputStream != null) {
+            tempFile.outputStream().use { output ->
+                inputStream.copyTo(output)
+            }
+        }
+        return tempFile
+    }
+
 
 }

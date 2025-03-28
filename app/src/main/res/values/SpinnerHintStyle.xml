@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SpinnerHintStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/bebas_neue</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+</resources>

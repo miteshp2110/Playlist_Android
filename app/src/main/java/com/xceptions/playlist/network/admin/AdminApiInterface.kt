@@ -3,6 +3,7 @@ package com.xceptions.playlist.network.admin
 import com.xceptions.playlist.model.Languages.GetLanguages
 import com.xceptions.playlist.model.MessageResponse
 import com.xceptions.playlist.model.NameRequestBody
+import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.genre.GetGenre
 import com.xceptions.playlist.model.song.GetAllSongs
 import okhttp3.MultipartBody
@@ -45,5 +46,8 @@ interface AdminApiInterface {
         @Part song_image: MultipartBody.Part,
         @Part song: MultipartBody.Part
     ):Call<MessageResponse>
+
+    @GET("artists")
+    suspend fun getAllArtists():Response<GetAllArtist>
 
 }

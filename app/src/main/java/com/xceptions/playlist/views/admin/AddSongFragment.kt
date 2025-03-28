@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentAdminAddsongBinding
 import com.xceptions.playlist.model.Languages.GetLanguages
 import com.xceptions.playlist.model.song.GetAllSongs
@@ -38,8 +39,8 @@ class AddSongFragment: Fragment() {
 
     val IMAGE_PICK_CODE = 1000
     val SONG_PICK_CODE = 1001
-//    var imageUri: Uri? = null
-//    var songUri: Uri? = null
+
+    var resourceCount = 0
 
 
     override fun onCreateView(
@@ -71,9 +72,9 @@ class AddSongFragment: Fragment() {
         }
 
         if(addSongViewModel.imageUri!=null){
-            binding.selectImageBtn.visibility = View.GONE
+
             binding.imagePreview.setImageURI(addSongViewModel.imageUri)
-            binding.imagePreview.visibility = ImageView.VISIBLE
+
 
         }
 
@@ -89,25 +90,112 @@ class AddSongFragment: Fragment() {
         }
 
         addSongViewModel.languagesList.observe(this.viewLifecycleOwner){data->
+            resourceCount++
+            if(resourceCount == 3){
+                binding.mainProgressBar.visibility = View.GONE
+                binding.mainLayout.visibility = View.VISIBLE
+            }
             var langList :MutableList<String> = mutableListOf()
             data?.forEach { language ->
                 langList.add(language.name)
             }
-            val languageAdapter = ArrayAdapter(this.requireContext(),android.R.layout.simple_spinner_dropdown_item,langList)
+            val languageAdapter = ArrayAdapter(this.requireContext(),R.layout.spinner_item,langList)
+            languageAdapter.setDropDownViewResource(R.layout.spinner_item)
             binding.languageSpinner.adapter = languageAdapter
 
             binding.languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     addSongViewModel.languageId = data?.get(position)?.id.toString()
-                    Log.d("addsongs", addSongViewModel.languageId!!)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+
         }
 
-//        val allLanguages = addSongViewModel.allLanguages
-//        val languages = listOf()
+        addSongViewModel.genreList.observe(this.viewLifecycleOwner){data->
+            resourceCount++
+            if(resourceCount == 3){
+                binding.mainProgressBar.visibility = View.GONE
+                binding.mainLayout.visibility = View.VISIBLE
+            }
+            var genList :MutableList<String> = mutableListOf()
+            data?.forEach { language ->
+                genList.add(language.name)
+            }
+            val genreAdapter = ArrayAdapter(this.requireContext(),R.layout.spinner_item,genList)
+            genreAdapter.setDropDownViewResource(R.layout.spinner_item)
+            binding.genreSpinner.adapter = genreAdapter
+
+            binding.genreSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    addSongViewModel.genereId = data?.get(position)?.id.toString()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
+        }
+
+        addSongViewModel.artistAll.observe(this.viewLifecycleOwner){data->
+            resourceCount++
+            if(resourceCount == 3){
+                binding.mainProgressBar.visibility = View.GONE
+                binding.mainLayout.visibility = View.VISIBLE
+            }
+            var artistList :MutableList<String> = mutableListOf()
+            data?.forEach { artist ->
+                artistList.add(artist.name)
+            }
+            val artistAdapter = ArrayAdapter(this.requireContext(),R.layout.spinner_item,artistList)
+            artistAdapter.setDropDownViewResource(R.layout.spinner_item)
+            binding.artistSpinner.adapter = artistAdapter
+
+            binding.artistSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    addSongViewModel.artistId = data?.get(position)?.id.toString()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
+        }
+
+        if(addSongViewModel.songName!=null){
+            binding.editTextSongName.setText(addSongViewModel.songName)
+        }
+
+
+
+        binding.uploadBtn.setOnClickListener {
+            addSongViewModel.songName = binding.editTextSongName.text.toString()
+            if(addSongViewModel.imageUri != null && addSongViewModel.songUri != null && addSongViewModel.songName!= null && addSongViewModel.artistId!=null
+                && addSongViewModel.languageId!=null && addSongViewModel.genereId!=null){
+                binding.uploadBtn.visibility = View.GONE
+                binding.uploadProgressBar.visibility = View.VISIBLE
+                addSongViewModel.addSong(this.requireContext(),this.viewLifecycleOwner)
+            }
+            else{
+                Toast.makeText(this.requireContext(),"Add All Fields",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        addSongViewModel.addSongResponse.observe(this.viewLifecycleOwner){response ->
+            if (response!= null){
+                binding.uploadProgressBar.visibility = View.GONE
+                binding.uploadBtn.visibility = View.VISIBLE
+
+                binding.editTextSongName.setText("")
+                addSongViewModel.clearFields()
+                binding.imagePreview.setImageURI(null)
+                binding.songNameText.text = "No Song Selected"
+                binding.languageSpinner.setSelection(0)
+                binding.genreSpinner.setSelection(0)
+                binding.artistSpinner.setSelection(0)
+                Toast.makeText(this.requireContext() , "Added Song",Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         return binding.root
     }
@@ -119,7 +207,6 @@ class AddSongFragment: Fragment() {
                 IMAGE_PICK_CODE -> {
                     addSongViewModel.imageUri = data.data
                     binding.imagePreview.setImageURI(addSongViewModel.imageUri)
-                    binding.imagePreview.visibility = ImageView.VISIBLE
                 }
                 SONG_PICK_CODE -> {
                     addSongViewModel.songUri = data.data

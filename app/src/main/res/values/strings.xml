@@ -11,4 +11,11 @@
     <string name="songs">Songs</string>
     <string name="add_song">Add Song</string>
     <string name="enter_song_name">Enter Song Name</string>
+    <string name="select_language">Select Language</string>
+    <string name="select_genre">Select Genre</string>
+    <string name="select_artist">Select Artist</string>
+    <string name="select_image">Select Image</string>
+    <string name="selected_image">Selected Image</string>
+    <string name="select_song">Select Song</string>
+    <string name="upload">Upload</string>
 </resources>
