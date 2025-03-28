@@ -33,7 +33,6 @@ class SongsAdapter(private val songs : GetAllSongs) : RecyclerView.Adapter<Songs
         holder.artistName.text = song.artist
         holder.songGenre.text = song.genere
         val imgUrl = song.song_image_url
-        Log.d("addsongs",imgUrl)
         Picasso.get()
             .load(imgUrl)
             .transform(RoundedTransformation(50f))

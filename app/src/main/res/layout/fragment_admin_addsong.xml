@@ -16,6 +16,73 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/textAddSongs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebas_neue"
+                android:text="@string/add_song"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="50sp"
+                android:layout_marginStart="10dp"
+                />
+            <EditText
+                android:layout_marginTop="10dp"
+                android:id="@+id/editText_SongName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebas_neue"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="40sp"
+                android:hint="@string/enter_song_name"
+                />
+
+            <Spinner
+                android:id="@+id/languageSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"/>
+
+            <ImageView
+                android:id="@+id/imagePreview"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="Selected Image" />
+
+            <TextView
+                android:id="@+id/songNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No song selected"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"/>
+            <Button
+                android:id="@+id/selectImageBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Image" />
+
+            <Button
+                android:id="@+id/selectSongBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Song" />
+
+            <Button
+                android:id="@+id/uploadBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="5dp"
             >
             <TextView
@@ -26,7 +93,7 @@
                 android:text="@string/songs"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="50sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 />
 
             <androidx.recyclerview.widget.RecyclerView
