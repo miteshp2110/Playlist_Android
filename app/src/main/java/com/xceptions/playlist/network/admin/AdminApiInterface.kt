@@ -50,4 +50,11 @@ interface AdminApiInterface {
     @GET("artists")
     suspend fun getAllArtists():Response<GetAllArtist>
 
+    @Multipart
+    @POST("artists")
+    fun addArtist(
+        @Part("name") name : RequestBody,
+        @Part profile_image : MultipartBody.Part
+    ): Call<MessageResponse>
+
 }

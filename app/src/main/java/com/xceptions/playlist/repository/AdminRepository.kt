@@ -41,6 +41,7 @@ class AdminRepository(token:String) {
     val allArtists : LiveData<GetAllArtist?> = _allArtists
 
 
+
     suspend fun getAllLanguages(){
         try {
 
@@ -152,8 +153,6 @@ class AdminRepository(token:String) {
         val genreBody = RequestBody.create("text/plain".toMediaTypeOrNull(), genreId)
         val artistBody = RequestBody.create("text/plain".toMediaTypeOrNull(), artistId)
 
-        Log.d("addsongs", "Image URI: $imageUri, Song URI: $songUri")
-
         val imageFile = uriToFile(context,imageUri)
         val requestFileImage = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
         val imagePart = MultipartBody.Part.createFormData("song_image", imageFile.name, requestFileImage)
@@ -166,9 +165,7 @@ class AdminRepository(token:String) {
 
         apiService.addSong(nameBody,languageBody,genreBody,artistBody,imagePart,songPart).enqueue(object : Callback<MessageResponse>{
             override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
-                Log.d("addsongs","add song")
                 if(response.isSuccessful){
-                    Log.d("addsongs","added song")
                     addSongsResponse.value = response.body()
                 }
                 else{
@@ -184,6 +181,32 @@ class AdminRepository(token:String) {
 
         })
         return addSongsResponse
+    }
+
+    fun addArtist(name:String,imageUri: Uri,context: Context) : LiveData<MessageResponse?>{
+        val addArtistResponse = MutableLiveData<MessageResponse?>()
+
+        val nameBody = RequestBody.create("text/plain".toMediaTypeOrNull(),name)
+        val imageFile = uriToFile(context,imageUri)
+        val requestFileImage = RequestBody.create("image/*".toMediaTypeOrNull(),imageFile)
+        val imagePart = MultipartBody.Part.createFormData("profile_image",imageFile.name,requestFileImage)
+
+        apiService.addArtist(nameBody,imagePart).enqueue(object : Callback<MessageResponse>{
+            override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                if(response.isSuccessful){
+                    addArtistResponse.value = response.body()
+                }
+                else{
+                    addArtistResponse.value = null
+                }
+            }
+
+            override fun onFailure(p0: Call<MessageResponse>, p1: Throwable) {
+                addArtistResponse.value = null
+            }
+
+        })
+        return addArtistResponse
     }
 
     suspend fun getAllArtists(){

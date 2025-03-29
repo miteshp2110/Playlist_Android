@@ -18,4 +18,8 @@
     <string name="selected_image">Selected Image</string>
     <string name="select_song">Select Song</string>
     <string name="upload">Upload</string>
+    <string name="artistimage">artistImage</string>
+    <string name="artists">Artists</string>
+    <string name="add_artist">Add Artist</string>
+    <string name="enter_artist_name">Enter Artist Name</string>
 </resources>
