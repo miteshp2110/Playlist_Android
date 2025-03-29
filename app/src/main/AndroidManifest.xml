@@ -43,6 +43,7 @@
         <activity
             android:name=".views.AuthActivity"
             android:exported="true"
+            android:theme="@style/Playlist.AuthActivityTheme"
             >
         </activity>
     </application>
