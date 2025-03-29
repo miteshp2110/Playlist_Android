@@ -54,11 +54,28 @@ class AddArtistFragment: Fragment() {
         }
         binding.addArtistButton.setOnClickListener {
             addArtistViewModel.artistName = binding.editTextArtistName.text.toString()
-            if(addArtistViewModel.artistName != null && addArtistViewModel.imageUri != null){
-
+            if(addArtistViewModel.artistName != "" && addArtistViewModel.imageUri != null){
+                binding.addArtistButton.visibility = View.GONE
+                binding.addProgressBar.visibility = View.VISIBLE
+                addArtistViewModel.addArtist(this.requireContext(),this.viewLifecycleOwner)
             }
             else{
                 Toast.makeText(this.requireContext(),"All Fields are Requied",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        addArtistViewModel.addArtistResponse.observe(this.viewLifecycleOwner){response ->
+            binding.addProgressBar.visibility = View.GONE
+            binding.addArtistButton.visibility = View.VISIBLE
+            addArtistViewModel.clear()
+            binding.editTextArtistName.setText("")
+            binding.imagePreview.setImageURI(null)
+            if(response==null){
+                Toast.makeText(this.requireContext(),"Failed to Add",Toast.LENGTH_SHORT).show()
+            }else
+            {
+                Toast.makeText(this.requireContext(),response.Message,Toast.LENGTH_SHORT).show()
+                addArtistViewModel.getAllArtists()
             }
         }
 

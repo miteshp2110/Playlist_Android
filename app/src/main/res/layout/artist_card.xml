@@ -25,7 +25,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/artistimage"
 
                 />

@@ -38,6 +38,7 @@ class AdminLoginFragment : Fragment() {
             if(response != null){
                 SecurePrefManager.saveJwtToken(this.requireContext(),response.token)
                 SecurePrefManager.setAdmin(this.requireContext(),true)
+                SecurePrefManager.saveUserInfo(this.requireContext(),"",adminEmail!!,"")
                 val adminIntent = Intent(this.requireContext(),com.xceptions.playlist.views.admin.AdminActivity::class.java)
                 adminIntent.flags = FLAG_ACTIVITY_NEW_TASK
                 startActivity(adminIntent)
