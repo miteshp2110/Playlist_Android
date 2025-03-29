@@ -23,4 +23,9 @@
     <string name="add_artist">Add Artist</string>
     <string name="enter_artist_name">Enter Artist Name</string>
     <string name="admin_account">Admin Account</string>
+    <string name="get_started">Get Started</string>
+    <string name="explore">EXPLORE</string>
+    <string name="your">YOUR</string>
+    <string name="world_of">WORLD OF</string>
+    <string name="music">MUSIC!</string>
 </resources>

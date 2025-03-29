@@ -4,42 +4,93 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?android:windowBackground"
+
     >
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/bebas_neue"
-        android:text="Hello World!"
-        android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="50sp"
+        android:orientation="vertical"
+        android:padding="20dp"
         android:layout_marginTop="50sp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:fontFamily="@font/bebas_neue"
+            android:text="@string/explore"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="100sp" />
+
+        <TextView
+            android:layout_marginTop="-10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:fontFamily="@font/bebas_neue"
+            android:text="@string/your"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="100sp" />
+
+        <TextView
+            android:layout_marginTop="-10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="@string/world_of"
+            android:fontFamily="@font/bebas_neue"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="100sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_marginTop="-10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:text="@string/music"
+                android:fontFamily="@font/bebas_neue"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="100sp"/>
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_musical_note"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_ripple"
+        android:text="@string/get_started"
+        android:textColor="@color/black"
+        android:fontFamily="@font/bebas_neue"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/buttonGetStarted"
         />
-
-
-
     <ProgressBar
+        android:layout_marginTop="10dp"
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:layout_gravity="center"
-        android:layout_marginTop="200sp"
-        android:visibility="gone"
+        android:visibility="gone"/>
 
-        />
-    <Button
-        android:id="@+id/auth"
+    <View
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:text="Signin"
-        android:textColor="@color/pink4"
-        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        />
 
 </LinearLayout>
