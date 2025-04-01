@@ -1,21 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
+
+
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/bebas_neue"
-        android:text="User"
-        android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="50sp"
-        android:layout_marginTop="50sp"
-        />
+        android:orientation="horizontal"
+        android:padding="1dp"
+        android:background="@drawable/bottom_nav_bar_shape">
+
+        <!-- Space at Start -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- Home Navigation Item -->
+        <LinearLayout
+            android:id="@+id/nav_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_item_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+
+            android:elevation="3dp"
+            android:layout_margin="7dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_home"/>
+        </LinearLayout>
+
+        <!-- Space Between -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- Playlist Navigation Item -->
+        <LinearLayout
+            android:id="@+id/nav_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_item_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:elevation="3dp"
+            android:layout_margin="7dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_search"/>
+        </LinearLayout>
+
+        <!-- Space Between -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- Account Navigation Item -->
+        <LinearLayout
+            android:id="@+id/nav_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_item_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:elevation="3dp"
+            android:layout_margin="7dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_playlist"/>
+        </LinearLayout>
+
+        <!-- Space at End -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/nav_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_item_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:elevation="3dp"
+            android:layout_margin="7dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_account"/>
+        </LinearLayout>
+
+        <!-- Space at End -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </LinearLayout>
