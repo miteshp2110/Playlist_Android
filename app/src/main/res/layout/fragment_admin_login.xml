@@ -13,42 +13,71 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/bebas_neue"
-        android:text="Admin Login"
+        android:text="@string/admin_login"
         android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
         android:textSize="50sp"
         android:layout_marginTop="50sp"
         />
-    <EditText
 
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="email"
-        android:inputType="textEmailAddress"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bebas_neue"
+        android:text="@string/email"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="30sp"
         android:layout_marginTop="100sp"
+        />
+
+    <EditText
+
         android:id="@+id/adminEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:enabled="false"
+        android:fontFamily="@font/bebas_neue"
+        android:inputType="textEmailAddress"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bebas_neue"
+        android:text="@string/password"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="30sp"
+        android:layout_marginTop="50dp"
         />
 
     <EditText
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="pass"
+        android:textColor="?android:textColorPrimary"
+        android:fontFamily="@font/bebas_neue"
+        android:textSize="25sp"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        android:layout_marginTop="100sp"
+        android:layout_marginTop="30dp"
         android:id="@+id/adminPassword"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100sp"
-        android:textColor="?android:textColorPrimary"
-        android:text="Login"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/black"
+        android:text="@string/login"
         android:id="@+id/login"
         android:layout_gravity="center"
+        android:background="@drawable/button_ripple"
+        android:fontFamily="@font/bebas_neue"
+        android:textSize="20sp"
+        android:elevation="10dp"
         />
 
 </LinearLayout>

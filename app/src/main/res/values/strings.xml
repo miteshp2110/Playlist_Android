@@ -28,4 +28,8 @@
     <string name="your">YOUR</string>
     <string name="world_of">WORLD OF</string>
     <string name="music">MUSIC!</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>

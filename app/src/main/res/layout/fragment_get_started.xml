@@ -76,6 +76,7 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:id="@+id/buttonGetStarted"
+        android:elevation="8dp"
         />
     <ProgressBar
         android:layout_marginTop="10dp"

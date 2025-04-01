@@ -12,11 +12,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.xceptions.playlist.databinding.FragmentGetStartedBinding
 import com.xceptions.playlist.utils.GoogleSignIn
+import com.xceptions.playlist.utils.HapticController
 
 class GetStartedFragment : Fragment() {
     private var _binding : FragmentGetStartedBinding? = null
     private val binding get() = _binding!!
-
+    private val hapticController = HapticController()
     private lateinit var gso: GoogleSignIn
 
     override fun onCreateView(
@@ -50,6 +51,7 @@ class GetStartedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonGetStarted.setOnClickListener{
+            hapticController.performHapticFeedback(it)
             binding.buttonGetStarted.visibility = View.GONE
             binding.progressBar.visibility=View.VISIBLE
             startActivityForResult(gso.getIntent(),100)
