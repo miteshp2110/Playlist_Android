@@ -12,13 +12,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.xceptions.playlist.databinding.FragmentGetStartedBinding
 import com.xceptions.playlist.utils.GoogleSignIn
+import com.xceptions.playlist.utils.HapticController
 
 class GetStartedFragment : Fragment() {
     private var _binding : FragmentGetStartedBinding? = null
     private val binding get() = _binding!!
-
+    private val hapticController = HapticController()
     private lateinit var gso: GoogleSignIn
-    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,14 +28,15 @@ class GetStartedFragment : Fragment() {
         _binding = FragmentGetStartedBinding.inflate(inflater,container,false)
 
         gso = GoogleSignIn(this.requireContext())
-        progressBar = binding.progressBar
+
 
 
         return binding.root
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        progressBar.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        binding.buttonGetStarted.visibility = View.VISIBLE
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 100){
 
@@ -48,10 +49,11 @@ class GetStartedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val button : Button = binding.auth
 
-        button.setOnClickListener{
-            progressBar.visibility=View.VISIBLE
+        binding.buttonGetStarted.setOnClickListener{
+            hapticController.performHapticFeedback(it)
+            binding.buttonGetStarted.visibility = View.GONE
+            binding.progressBar.visibility=View.VISIBLE
             startActivityForResult(gso.getIntent(),100)
         }
 

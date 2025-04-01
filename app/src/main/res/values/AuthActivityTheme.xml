@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Playlist.AuthActivityTheme" parent="Base.Theme.Playlist">
+        <item name="android:navigationBarColor">@color/pink2</item>
+    </style>
+
+</resources>

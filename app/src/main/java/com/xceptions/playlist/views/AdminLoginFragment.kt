@@ -38,6 +38,7 @@ class AdminLoginFragment : Fragment() {
             if(response != null){
                 SecurePrefManager.saveJwtToken(this.requireContext(),response.token)
                 SecurePrefManager.setAdmin(this.requireContext(),true)
+                SecurePrefManager.saveUserInfo(this.requireContext(),"",adminEmail!!,"")
                 val adminIntent = Intent(this.requireContext(),com.xceptions.playlist.views.admin.AdminActivity::class.java)
                 adminIntent.flags = FLAG_ACTIVITY_NEW_TASK
                 startActivity(adminIntent)
@@ -51,19 +52,19 @@ class AdminLoginFragment : Fragment() {
         }
 
         login.setOnClickListener{
-            val req = AdminAuthRequest(email.text.toString(),pass.text.toString())
-            viewModel.loginAdmin(req)
+            if(binding.adminPassword.text.toString() != ""){
+                val req = AdminAuthRequest(email.text.toString(),pass.text.toString())
+                viewModel.loginAdmin(req)
+            }
+            else{
+                Toast.makeText(this.requireContext(),"Password Required",Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
