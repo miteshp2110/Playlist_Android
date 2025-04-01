@@ -1,8 +1,7 @@
-package com.xceptions.playlist.viewmodel
+package com.xceptions.playlist.viewmodel.admin
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

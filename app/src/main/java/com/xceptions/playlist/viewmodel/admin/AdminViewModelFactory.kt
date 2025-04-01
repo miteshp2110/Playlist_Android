@@ -1,4 +1,4 @@
-package com.xceptions.playlist.viewmodel
+package com.xceptions.playlist.viewmodel.admin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
