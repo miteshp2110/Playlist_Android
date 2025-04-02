@@ -36,4 +36,5 @@
     <string name="top_artist">Top Artists</string>
     <string name="favourites">Favourites</string>
     <string name="no_favourites_yet">No Favourites Yet</string>
+    <string name="search_song">Search Song</string>
 </resources>

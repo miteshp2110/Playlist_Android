@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.user.UserSearchFragment">
+    android:orientation="vertical"
 
-    <TextView
-        android:id="@+id/textView"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+
+    >
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/bebas_neue"
-        android:text="Search"
-        android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="50sp"
-        android:layout_marginTop="50sp"
+        android:orientation="horizontal"
+        android:background="@drawable/color_1_rounded"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_gravity="center"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_searchbar"/>
+
+        <EditText
+            android:id="@+id/searchSongName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebas_neue"
+            android:textColor="@color/black"
+            android:hint="@string/search_song"
+            android:background="@null"
+            android:textSize="25sp"
+            android:singleLine="true"
+            android:textColorHint="@color/inactive_grey"
+            android:layout_marginStart="10dp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:id="@+id/searchRecycler"
         />
 
-</FrameLayout>
+
+
+
+
+</LinearLayout>
