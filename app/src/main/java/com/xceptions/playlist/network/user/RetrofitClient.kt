@@ -19,7 +19,7 @@ object RetrofitClient {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.123.60.224:7000/") // change to production
+            .baseUrl("http://10.56.20.153:7000/") // change to production
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

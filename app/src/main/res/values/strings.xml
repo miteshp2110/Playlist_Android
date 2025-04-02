@@ -33,4 +33,5 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="trending_songs">Trending Songs</string>
+    <string name="top_artist">Top Artists</string>
 </resources>
