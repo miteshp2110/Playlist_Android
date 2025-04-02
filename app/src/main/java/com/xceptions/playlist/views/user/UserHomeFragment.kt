@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.ExoPlayer
@@ -15,6 +16,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.PlayerView
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentUserHomeBinding
+import com.xceptions.playlist.utils.FavouriteAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.utils.TopArtistAdapter
 import com.xceptions.playlist.utils.TrendingAdapter
@@ -42,6 +44,8 @@ class UserHomeFragment : Fragment() {
         _binding = FragmentUserHomeBinding.inflate(inflater,container,false)
         binding.trendingRecycler.layoutManager = LinearLayoutManager(this.requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.artistRecycler.layoutManager = LinearLayoutManager(this.requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.favouriteRecycler.layoutManager = GridLayoutManager(this.requireContext(),2)
+
         viewModel._trendingSongs.observe(viewLifecycleOwner){response ->
             val trendingAdapter = TrendingAdapter(response!!)
             binding.trendingRecycler.adapter = trendingAdapter
@@ -50,6 +54,17 @@ class UserHomeFragment : Fragment() {
         viewModel._topArtist.observe(viewLifecycleOwner){response ->
             val artistAdapter = TopArtistAdapter(response!!)
             binding.artistRecycler.adapter = artistAdapter
+        }
+
+        viewModel._homeFavourite.observe(viewLifecycleOwner){response ->
+            if(response!!.size == 0){
+                binding.favouriteRecycler.visibility = View.GONE
+                binding.noFavText.visibility = View.VISIBLE
+            }
+            else{
+                val favAdapter = FavouriteAdapter(response)
+                binding.favouriteRecycler.adapter = favAdapter
+            }
         }
 
 //        playerView = binding.playerView

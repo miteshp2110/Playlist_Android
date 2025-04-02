@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.xceptions.playlist.model.artist.GetAllArtist
+import com.xceptions.playlist.model.favourites.GetAllFavourites
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.network.user.RetrofitClient
 import com.xceptions.playlist.network.user.UserApiService
@@ -17,6 +18,9 @@ class UserRepository(private val token : String) {
 
     private var _topArtist = MutableLiveData<GetAllArtist?>()
     val topArtist : LiveData<GetAllArtist?> = _topArtist
+
+    private var _homeFavourite = MutableLiveData<GetAllFavourites?>()
+    val homeFavourites : LiveData<GetAllFavourites?> = _homeFavourite
 
 
     suspend fun getTrendingSongs(){
@@ -34,6 +38,23 @@ class UserRepository(private val token : String) {
         catch (e:Exception){
 
             _trendingSongs.value = null
+        }
+    }
+
+    suspend fun getHomeFavourite(){
+        try{
+            val response : Response<GetAllFavourites> = apiService.getHomeFavourite()
+            if(response.isSuccessful){
+
+                _homeFavourite.value = response.body()
+            }
+            else{
+                _homeFavourite.value = null
+            }
+        }
+        catch (e:Exception){
+
+            _homeFavourite.value = null
         }
     }
 

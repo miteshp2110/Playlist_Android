@@ -34,4 +34,6 @@
     <string name="login">Login</string>
     <string name="trending_songs">Trending Songs</string>
     <string name="top_artist">Top Artists</string>
+    <string name="favourites">Favourites</string>
+    <string name="no_favourites_yet">No Favourites Yet</string>
 </resources>
