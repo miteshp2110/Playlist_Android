@@ -1,7 +1,6 @@
-package com.xceptions.playlist.viewmodel
+package com.xceptions.playlist.viewmodel.admin
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

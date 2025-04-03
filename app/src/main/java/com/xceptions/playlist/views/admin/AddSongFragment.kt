@@ -1,7 +1,6 @@
 package com.xceptions.playlist.views.admin
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -9,13 +8,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,12 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentAdminAddsongBinding
-import com.xceptions.playlist.model.Languages.GetLanguages
 import com.xceptions.playlist.model.song.GetAllSongs
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.utils.SongsAdapter
-import com.xceptions.playlist.viewmodel.AddSongViewModel
-import com.xceptions.playlist.viewmodel.AdminViewModelFactory
+import com.xceptions.playlist.viewmodel.admin.AddSongViewModel
+import com.xceptions.playlist.viewmodel.admin.AdminViewModelFactory
 
 class AddSongFragment: Fragment() {
 

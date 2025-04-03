@@ -3,7 +3,6 @@ package com.xceptions.playlist.views
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.fragment.app.viewModels
 import com.xceptions.playlist.databinding.FragmentAdminLoginBinding
 import com.xceptions.playlist.model.adminauth.AdminAuthRequest
 import com.xceptions.playlist.utils.SecurePrefManager
-import com.xceptions.playlist.viewmodel.AdminLoginViewModel
+import com.xceptions.playlist.viewmodel.admin.AdminLoginViewModel
 
 class AdminLoginFragment : Fragment() {
     private var _binding : FragmentAdminLoginBinding? = null

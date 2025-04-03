@@ -1,15 +1,11 @@
 package com.xceptions.playlist.views.admin
 
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.ActivityAdminBinding
-import com.xceptions.playlist.viewmodel.AdminActivityViewModel
+import com.xceptions.playlist.viewmodel.admin.AdminActivityViewModel
 
 class AdminActivity : AppCompatActivity() {
 

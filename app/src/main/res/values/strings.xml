@@ -32,4 +32,13 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="trending_songs">Trending Songs</string>
+    <string name="top_artist">Top Artists</string>
+    <string name="favourites">Favourites</string>
+    <string name="no_favourites_yet">No Favourites Yet</string>
+    <string name="search_song">Search Song</string>
+    <string name="songs_">Songs -</string>
+    <string name="duration">Duration -</string>
+    <string name="playlist">Playlists</string>
+    <string name="no_playlists_found">No Playlists Found</string>
 </resources>

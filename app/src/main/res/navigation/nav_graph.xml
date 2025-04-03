@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/userHomeFragment">
+
+    <fragment
+        android:id="@+id/userHomeFragment"
+        android:name="com.xceptions.playlist.views.user.UserHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_user_home" />
+
+    <fragment
+        android:id="@+id/userSearchFragment"
+        android:name="com.xceptions.playlist.views.user.UserSearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_user_search" />
+
+    <fragment
+        android:id="@+id/userPlaylistFragment"
+        android:name="com.xceptions.playlist.views.user.UserPlaylistFragment"
+        android:label="Playlists"
+        tools:layout="@layout/fragment_user_playlist" />
+
+    <fragment
+        android:id="@+id/userAccountFragment"
+        android:name="com.xceptions.playlist.views.user.UserAccountFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_user_account" />
+
+    <fragment
+        android:id="@+id/createPlaylistFragment"
+        android:name="com.xceptions.playlist.views.user.CreatePlaylistFragment"
+        android:label="Create Playlist"
+        tools:layout="@layout/fragment_create_playlist" />
+
+</navigation>

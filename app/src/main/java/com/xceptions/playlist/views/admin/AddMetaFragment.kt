@@ -2,7 +2,6 @@ package com.xceptions.playlist.views.admin
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,8 @@ import com.xceptions.playlist.model.genre.GetGenre
 import com.xceptions.playlist.utils.GenreAdapter
 import com.xceptions.playlist.utils.LanguageAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
-import com.xceptions.playlist.viewmodel.AddMetaViewModel
-import com.xceptions.playlist.viewmodel.AdminViewModelFactory
+import com.xceptions.playlist.viewmodel.admin.AddMetaViewModel
+import com.xceptions.playlist.viewmodel.admin.AdminViewModelFactory
 
 class AddMetaFragment: Fragment() {
 

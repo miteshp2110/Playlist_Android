@@ -15,8 +15,8 @@ import com.xceptions.playlist.databinding.FragmentAdminAddartistBinding
 import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.utils.ArtistAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
-import com.xceptions.playlist.viewmodel.AddArtistViewModel
-import com.xceptions.playlist.viewmodel.AdminViewModelFactory
+import com.xceptions.playlist.viewmodel.admin.AddArtistViewModel
+import com.xceptions.playlist.viewmodel.admin.AdminViewModelFactory
 
 class AddArtistFragment: Fragment() {
     private var _binding : FragmentAdminAddartistBinding? = null
