@@ -17,6 +17,9 @@ class UserViewModelFactory(private val token : String) : ViewModelProvider.Facto
         if(modelClass.isAssignableFrom(UserAccountViewModel::class.java)){
             return UserAccountViewModel(token) as T
         }
+        if(modelClass.isAssignableFrom(PlaylistSharedViewModel::class.java)){
+            return PlaylistSharedViewModel(token) as T
+        }
         throw IllegalArgumentException("Unknown Agrument")
     }
 }

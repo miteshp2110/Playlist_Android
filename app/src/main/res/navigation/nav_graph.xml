@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/userHomeFragment">
 
     <fragment
@@ -20,7 +20,16 @@
         android:id="@+id/userPlaylistFragment"
         android:name="com.xceptions.playlist.views.user.UserPlaylistFragment"
         android:label="Playlists"
-        tools:layout="@layout/fragment_user_playlist" />
+        tools:layout="@layout/fragment_user_playlist" >
+        <action
+            android:id="@+id/action_userPlaylistFragment_to_createPlaylistFragment"
+            app:destination="@id/createPlaylistFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_left_exit"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_right_exit" />
+    </fragment>
 
     <fragment
         android:id="@+id/userAccountFragment"
@@ -32,6 +41,18 @@
         android:id="@+id/createPlaylistFragment"
         android:name="com.xceptions.playlist.views.user.CreatePlaylistFragment"
         android:label="Create Playlist"
-        tools:layout="@layout/fragment_create_playlist" />
-
+        tools:layout="@layout/fragment_create_playlist" >
+        <action
+            android:id="@+id/action_createPlaylistFragment_to_playlistAddSongFragment"
+            app:destination="@id/playlistAddSongFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_left_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_right_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/playlistAddSongFragment"
+        android:name="com.xceptions.playlist.views.user.PlaylistAddSongFragment"
+        android:label="fragment_playlist_add_song"
+        tools:layout="@layout/fragment_playlist_add_song" />
 </navigation>
