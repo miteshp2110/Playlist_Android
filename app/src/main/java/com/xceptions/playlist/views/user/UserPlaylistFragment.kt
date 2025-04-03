@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentUserPlaylistBinding
 import com.xceptions.playlist.utils.PlaylistAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
@@ -32,7 +35,6 @@ class UserPlaylistFragment : Fragment() {
         binding.playlistRecycler.layoutManager = LinearLayoutManager(this.requireContext())
         viewModel.getAllPlaylistResponse.observe(viewLifecycleOwner){response ->
             if (response == null){
-                Log.d("playlist","no playlist")
                 binding.playlistProgressBar.visibility = View.GONE
                 binding.noListText.visibility = View.VISIBLE
             }
@@ -44,7 +46,12 @@ class UserPlaylistFragment : Fragment() {
             }
         }
 
+        binding.createPlaylistButton.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.createPlaylistFragment)
+        }
+
 
         return binding.root
     }
+
 }
