@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
 import com.xceptions.playlist.model.song.SearchSongs
+import com.xceptions.playlist.viewmodel.user.UserSearchViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class SearchResultAdapter(private val searches : SearchSongs) : RecyclerView.Adapter<SearchResultAdapter.SearchViewHolder>() {
+class SearchResultAdapter(private val searches : SearchSongs,private val viewModel : UserSearchViewModel) : RecyclerView.Adapter<SearchResultAdapter.SearchViewHolder>() {
 
     inner class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val songName : TextView = itemView.findViewById(R.id.searchSongName)
@@ -40,7 +44,24 @@ class SearchResultAdapter(private val searches : SearchSongs) : RecyclerView.Ada
             holder.favIcon.setImageResource(R.drawable.icon_favourite_active)
         }
         holder.favIcon.setOnClickListener{
-            Log.d("search","song id : "+search.songId+" favId : "+search.isFavourite)
+            CoroutineScope(Dispatchers.Main).launch {
+                if(search.isFavourite == 0){
+                    // not yet fav
+                    val favId : Int = viewModel.addToFav(search.songId)
+                    holder.favIcon.setImageResource(R.drawable.icon_favourite_active)
+                    holder.favId.text = favId.toString()
+                    search.isFavourite = favId
+
+
+                    // api call to add fav using songId
+                }
+                else{
+                    viewModel.RemoveFromFav(search.isFavourite)
+                    holder.favIcon.setImageResource(R.drawable.icon_favourite_inactive)
+                    holder.favId.text = "0"
+                    search.isFavourite = 0
+                }
+            }
         }
 
         val imgUrl = search.song_image_url

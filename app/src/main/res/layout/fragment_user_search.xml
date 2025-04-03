@@ -44,6 +44,17 @@
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:id="@+id/searchRecycler"
+        android:visibility="gone"
+        />
+    <ProgressBar
+        android:layout_marginTop="10dp"
+        android:id="@+id/searchProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone"
         />
 
 

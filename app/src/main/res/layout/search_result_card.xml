@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="3dp"
+
     android:padding="2dp">
     <androidx.cardview.widget.CardView
         android:id="@+id/searchSongId"
@@ -36,7 +36,7 @@
                     android:id="@+id/searchSongName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="?android:textColorPrimary"
                     android:fontFamily="@font/bebas_neue"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -49,7 +49,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/black"
+                    android:textColor="?android:textColorPrimary"
                     android:fontFamily="@font/bebas_neue"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -66,15 +66,16 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/black"
+                android:textColor="?android:textColorPrimary"
                 android:fontFamily="@font/bebas_neue"
                 android:layout_marginEnd="20dp"
                 android:textSize="15sp"/>
             <ImageView
+                android:padding="5dp"
                 android:layout_marginEnd="5dp"
                 android:id="@+id/searchFavIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:clickable="true"
                 android:src="@drawable/icon_favourite_inactive"/>

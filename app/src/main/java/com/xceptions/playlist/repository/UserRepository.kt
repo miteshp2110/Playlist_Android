@@ -1,14 +1,18 @@
 package com.xceptions.playlist.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.xceptions.playlist.model.MessageResponse
 import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.favourites.GetAllFavourites
+import com.xceptions.playlist.model.favourites.AddFavourite
+import com.xceptions.playlist.model.favourites.RemoveFavourite
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.model.song.SearchSongs
 import com.xceptions.playlist.network.user.RetrofitClient
 import com.xceptions.playlist.network.user.UserApiService
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepository(private val token : String) {
@@ -96,5 +100,38 @@ class UserRepository(private val token : String) {
         }
     }
 
+    fun addSongTOFav(body : AddFavourite): LiveData<MessageResponse?>{
+        val responseData = MutableLiveData<MessageResponse?>()
+
+        apiService.addFavourite(body).enqueue(object : Callback<MessageResponse?>{
+            override fun onResponse(call: Call<MessageResponse?>, response: Response<MessageResponse?>) {
+                if(response.isSuccessful){
+                    responseData.value = response.body()
+                }
+                else{
+                    responseData.value = null
+                }
+            }
+
+            override fun onFailure(call: Call<MessageResponse?>, t: Throwable) {
+                responseData.value = null
+            }
+
+        })
+        return responseData
+    }
+
+    fun removeFromFav(body : RemoveFavourite){
+        apiService.removeSongFromFav(body).enqueue(object : Callback<MessageResponse>{
+            override fun onResponse(p0: Call<MessageResponse>, p1: Response<MessageResponse>) {
+
+            }
+
+            override fun onFailure(p0: Call<MessageResponse>, p1: Throwable) {
+
+            }
+
+        })
+    }
 
 }
