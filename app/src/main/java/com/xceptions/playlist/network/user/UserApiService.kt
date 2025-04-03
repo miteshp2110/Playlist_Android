@@ -5,6 +5,7 @@ import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.favourites.GetAllFavourites
 import com.xceptions.playlist.model.favourites.AddFavourite
 import com.xceptions.playlist.model.favourites.RemoveFavourite
+import com.xceptions.playlist.model.playlist.GetAllPlaylist
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.model.song.SearchSongs
 import retrofit2.Call
@@ -34,4 +35,7 @@ interface UserApiService {
 
     @POST("favourite/remove")
     fun removeSongFromFav(@Body favId : RemoveFavourite) : Call<MessageResponse>
+
+    @GET("playlist/get")
+    suspend fun getAllPlaylist() : Response<GetAllPlaylist>
 }

@@ -1,21 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
     tools:context=".views.user.UserPlaylistFragment">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+
         android:fontFamily="@font/bebas_neue"
-        android:text="Playlist"
-        android:textAlignment="center"
+        android:text="@string/playlist"
         android:textColor="?android:textColorPrimary"
         android:textSize="50sp"
         android:layout_marginTop="50sp"
         />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playlistRecycler"
+        android:layout_marginTop="10dp"
+        android:padding="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <ProgressBar
+        android:layout_marginTop="10dp"
+        android:id="@+id/playlistProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:id="@+id/noListText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="@font/bebas_neue"
+        android:text="@string/no_playlists_found"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="20sp"
+        android:layout_marginTop="10sp"
+        android:visibility="gone"
+        />
 
-</FrameLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.xceptions.playlist.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.xceptions.playlist.model.MessageResponse
@@ -7,6 +8,7 @@ import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.favourites.GetAllFavourites
 import com.xceptions.playlist.model.favourites.AddFavourite
 import com.xceptions.playlist.model.favourites.RemoveFavourite
+import com.xceptions.playlist.model.playlist.GetAllPlaylist
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.model.song.SearchSongs
 import com.xceptions.playlist.network.user.RetrofitClient
@@ -29,6 +31,9 @@ class UserRepository(private val token : String) {
 
     private var _searchSongResult = MutableLiveData<SearchSongs?> ()
     val searchSongResult : LiveData<SearchSongs?> = _searchSongResult
+
+    private val _getAllPlaylistResult = MutableLiveData<GetAllPlaylist?>()
+    val getAllPlaylistResult : LiveData<GetAllPlaylist?> = _getAllPlaylistResult
 
     suspend fun searchSongs(name : String){
         try{
@@ -132,6 +137,25 @@ class UserRepository(private val token : String) {
             }
 
         })
+    }
+
+    suspend fun getAllPlaylist(){
+        try{
+            val response : Response<GetAllPlaylist> = apiService.getAllPlaylist()
+
+            if(response.isSuccessful){
+
+                _getAllPlaylistResult.value = response.body()
+            }
+            else{
+
+                _getAllPlaylistResult.value = null
+            }
+        }
+        catch (e:Exception){
+
+            _getAllPlaylistResult.value = null
+        }
     }
 
 }
