@@ -17,7 +17,6 @@ class UserActivityViewModel {
     }
 
     fun setActiveFragment(fragment: Fragment, navItemId:Int){
-        _activeFragment.value = fragment
         _activeNavItemId.value = navItemId
     }
 }
