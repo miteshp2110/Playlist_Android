@@ -1,58 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/userHomeFragment">
 
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/userHomeFragment"
         android:name="com.xceptions.playlist.views.user.UserHomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_user_home" />
 
+    <!-- Search Fragment -->
     <fragment
         android:id="@+id/userSearchFragment"
         android:name="com.xceptions.playlist.views.user.UserSearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_user_search" />
 
+    <!-- Playlist Fragment -->
     <fragment
         android:id="@+id/userPlaylistFragment"
         android:name="com.xceptions.playlist.views.user.UserPlaylistFragment"
         android:label="Playlists"
-        tools:layout="@layout/fragment_user_playlist" >
+        tools:layout="@layout/fragment_user_playlist">
+
+        <!-- Navigate to nested playlist graph -->
         <action
-            android:id="@+id/action_userPlaylistFragment_to_createPlaylistFragment"
-            app:destination="@id/createPlaylistFragment"
+            android:id="@+id/action_userPlaylistFragment_to_playlist_graph"
+            app:destination="@id/playlist_graph"
             app:enterAnim="@anim/slide_right_enter"
             app:exitAnim="@anim/slide_left_exit"
-            app:launchSingleTop="false"
             app:popEnterAnim="@anim/slide_left_enter"
             app:popExitAnim="@anim/slide_right_exit" />
     </fragment>
 
+    <!-- Account Fragment -->
     <fragment
         android:id="@+id/userAccountFragment"
         android:name="com.xceptions.playlist.views.user.UserAccountFragment"
         android:label="Account"
         tools:layout="@layout/fragment_user_account" />
 
-    <fragment
-        android:id="@+id/createPlaylistFragment"
-        android:name="com.xceptions.playlist.views.user.CreatePlaylistFragment"
-        android:label="Create Playlist"
-        tools:layout="@layout/fragment_create_playlist" >
-        <action
-            android:id="@+id/action_createPlaylistFragment_to_playlistAddSongFragment"
-            app:destination="@id/playlistAddSongFragment"
-            app:enterAnim="@anim/slide_right_enter"
-            app:exitAnim="@anim/slide_left_exit"
-            app:popEnterAnim="@anim/slide_left_enter"
-            app:popExitAnim="@anim/slide_right_exit" />
-    </fragment>
-    <fragment
-        android:id="@+id/playlistAddSongFragment"
-        android:name="com.xceptions.playlist.views.user.PlaylistAddSongFragment"
-        android:label="fragment_playlist_add_song"
-        tools:layout="@layout/fragment_playlist_add_song" />
+    <!-- Include nested graph -->
+    <include app:graph="@navigation/playlist_graph" />
 </navigation>

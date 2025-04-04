@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playlist_graph"
+    app:startDestination="@id/createPlaylistFragment">
+
+    <!-- Create Playlist Fragment -->
+    <fragment
+        android:id="@+id/createPlaylistFragment"
+        android:name="com.xceptions.playlist.views.user.CreatePlaylistFragment"
+        android:label="Create Playlist"
+       >
+
+        <action
+            android:id="@+id/action_createPlaylistFragment_to_playlistAddSongFragment"
+            app:destination="@id/playlistAddSongFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_left_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_right_exit" />
+    </fragment>
+
+    <!-- Add Song Fragment -->
+    <fragment
+        android:id="@+id/playlistAddSongFragment"
+        android:name="com.xceptions.playlist.views.user.PlaylistAddSongFragment"
+        android:label="Add Song"
+         />
+</navigation>

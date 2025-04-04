@@ -33,6 +33,19 @@ class AddSongSearchAdapter(private val searches : SearchSongs, private val viewM
 
     override fun onBindViewHolder(holder: AddSongSearchAdapter.SearchViewHolder, position: Int) {
         val search = searches[position]
+        if(viewModel.isElementThere(search)){
+            holder.checkBox.isSelected = true
+        }
+        holder.checkBox.setOnClickListener {
+            if(viewModel.isElementThere(search)){
+                viewModel.removeElementFromSongList(search)
+                holder.checkBox.isSelected = false
+            }
+            else{
+                viewModel.addElementToSongList(search)
+                holder.checkBox.isSelected = true
+            }
+        }
         holder.songName.text = search.songName
         holder.artistName.text = search.artistName
         Log.d("add",search.toString())

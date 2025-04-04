@@ -8,20 +8,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentCreatePlaylistBinding
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.viewmodel.user.PlaylistSharedViewModel
 import com.xceptions.playlist.viewmodel.user.UserViewModelFactory
+import com.xceptions.playlist.views.AdminLoginFragmentArgs
 
 class CreatePlaylistFragment : Fragment() {
 
     private var _binding : FragmentCreatePlaylistBinding? = null
     private val token: String by lazy { SecurePrefManager.getJwtToken(requireContext()) ?: "null" }
     private val binding get() = _binding!!
-    private val viewModel: PlaylistSharedViewModel by activityViewModels{ UserViewModelFactory(token) }
+    private val viewModel: PlaylistSharedViewModel by navGraphViewModels(R.id.playlist_graph) {
+        UserViewModelFactory(token)
+    }
+
+
+
 
 
     override fun onCreateView(
@@ -29,18 +39,17 @@ class CreatePlaylistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreatePlaylistBinding.inflate(inflater,container,false)
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object :OnBackPressedCallback(true){
-//            override fun handleOnBackPressed() {
-//
-////                findNavController().navigate(R.id.action)
-//            }
-//
-//        })
+
+
         viewModel.totalSongs.observe(viewLifecycleOwner){response ->
             binding.createPlaylistTotalSongs.text = response.toString()
         }
         viewModel.totalDuration.observe(viewLifecycleOwner){response ->
-            binding.createPlaylistDuration.text = response.toString()
+            val dur: Int = response
+            val min : Int = dur/60
+            val secInt : Int = dur - min*60
+            val secStr : String = min.toString()+":"+if(secInt<10){"0"+secInt.toString()}else{secInt.toString()}
+            binding.createPlaylistDuration.text = secStr
         }
         binding.saveButton.setOnClickListener {
             viewModel.createPlayListName = binding.createPlaylistName.text.toString()
@@ -68,4 +77,6 @@ class CreatePlaylistFragment : Fragment() {
 
         return binding.root
     }
+
+
 }

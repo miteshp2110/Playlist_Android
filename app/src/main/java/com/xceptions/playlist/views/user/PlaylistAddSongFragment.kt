@@ -9,7 +9,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentCreatePlaylistBinding
@@ -26,7 +30,11 @@ class PlaylistAddSongFragment : Fragment() {
     private var _binding : FragmentPlaylistAddSongBinding? = null
     private val token: String by lazy { SecurePrefManager.getJwtToken(requireContext()) ?: "null" }
     private val binding get() = _binding!!
-    private val viewModel: PlaylistSharedViewModel by activityViewModels{ UserViewModelFactory(token) }
+    private val viewModel: PlaylistSharedViewModel by navGraphViewModels(R.id.playlist_graph) {
+        UserViewModelFactory(token)
+    }
+
+
 
     private var searchRunnable: Runnable? = null
     private val handler = Handler(Looper.getMainLooper())
@@ -38,14 +46,31 @@ class PlaylistAddSongFragment : Fragment() {
         _binding = FragmentPlaylistAddSongBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
 
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object :
+//            OnBackPressedCallback(true){
+//            override fun handleOnBackPressed() {
+//                findNavController().popBackStack()
+//                findNavController().navigate(R.id.createPlaylistFragment, bundleOf("isInit" to false))
+//
+//            }
+//
+//        })
+
         binding.playlistName.text = viewModel.createPlayListName
         binding.searchResultRecycler.layoutManager = LinearLayoutManager(this.requireContext())
+        binding.addedSongsRecycler.layoutManager = LinearLayoutManager(this.requireContext())
         viewModel.totalDuration.observe(viewLifecycleOwner){response ->
-            binding.createPlaylistDuration.text = response.toString()
+            val dur: Int = response
+            val min : Int = dur/60
+            val secInt : Int = dur - min*60
+            val secStr : String = min.toString()+":"+if(secInt<10){"0"+secInt.toString()}else{secInt.toString()}
+            binding.createPlaylistDuration.text = secStr
         }
         viewModel.totalSongs.observe(viewLifecycleOwner){response ->
             binding.createPlaylistTotalSongs.text = response.toString()
         }
+
+        viewModel
 
 
         viewModel.searchResponse.observe(viewLifecycleOwner){result ->
@@ -86,4 +111,5 @@ class PlaylistAddSongFragment : Fragment() {
         })
         return binding.root
     }
+
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.xceptions.playlist.model.song.GetAllSongs
 import com.xceptions.playlist.model.song.GetAllSongsItem
 import com.xceptions.playlist.model.song.SearchSongs
+import com.xceptions.playlist.model.song.SearchSongsItem
 import com.xceptions.playlist.repository.UserRepository
 import kotlinx.coroutines.launch
 
@@ -18,7 +19,29 @@ class PlaylistSharedViewModel(private val token : String) : ViewModel() {
     var totalDuration = MutableLiveData<Int> (0)
     var totalSongs = MutableLiveData<Int> (0)
 
-    var songsList = MutableLiveData<ArrayList<GetAllSongsItem>> (ArrayList<GetAllSongsItem>())
+
+    var songsList = MutableLiveData<ArrayList<SearchSongsItem>> (ArrayList<SearchSongsItem>())
+
+    fun addElementToSongList(song : SearchSongsItem){
+        songsList.value!!.add(song)
+        totalSongs.value = songsList.value!!.size
+        var currentDuration = totalDuration.value!!
+        currentDuration += song.duration
+        totalDuration.value = currentDuration
+    }
+
+    fun isElementThere(song : SearchSongsItem):Boolean{
+        return songsList.value!!.contains(song)
+    }
+
+    fun removeElementFromSongList(song:SearchSongsItem){
+        var currentDuration = totalDuration.value!!
+        currentDuration -= song.duration
+        totalDuration.value = currentDuration
+        songsList.value!!.remove(song)
+        totalSongs.value = songsList.value!!.size
+    }
+
 
     val searchResponse : LiveData<SearchSongs?> = userRepository.searchSongResult
 
