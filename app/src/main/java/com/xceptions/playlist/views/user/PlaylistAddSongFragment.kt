@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentCreatePlaylistBinding
 import com.xceptions.playlist.databinding.FragmentPlaylistAddSongBinding
 import com.xceptions.playlist.utils.AddSongSearchAdapter
+import com.xceptions.playlist.utils.EditSongAdapter
 import com.xceptions.playlist.utils.SearchResultAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.viewmodel.user.PlaylistSharedViewModel
@@ -44,21 +46,11 @@ class PlaylistAddSongFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlaylistAddSongBinding.inflate(inflater,container,false)
-        // Inflate the layout for this fragment
-
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object :
-//            OnBackPressedCallback(true){
-//            override fun handleOnBackPressed() {
-//                findNavController().popBackStack()
-//                findNavController().navigate(R.id.createPlaylistFragment, bundleOf("isInit" to false))
-//
-//            }
-//
-//        })
 
         binding.playlistName.text = viewModel.createPlayListName
         binding.searchResultRecycler.layoutManager = LinearLayoutManager(this.requireContext())
         binding.addedSongsRecycler.layoutManager = LinearLayoutManager(this.requireContext())
+
         viewModel.totalDuration.observe(viewLifecycleOwner){response ->
             val dur: Int = response
             val min : Int = dur/60
@@ -70,7 +62,22 @@ class PlaylistAddSongFragment : Fragment() {
             binding.createPlaylistTotalSongs.text = response.toString()
         }
 
-        viewModel
+        viewModel.songsList.observe(viewLifecycleOwner){response ->
+           if(response != null){
+               if(response.size == 0){
+                   binding.addedSongsRecycler.visibility = View.GONE
+                   binding.noTextView.visibility = View.VISIBLE
+               }
+               else{
+                   val adapter = EditSongAdapter(response,viewModel)
+                   binding.addedSongsRecycler.adapter = adapter
+                   binding.noTextView.visibility = View.GONE
+                   binding.addedSongsRecycler.visibility = View.VISIBLE
+               }
+           }
+
+
+        }
 
 
         viewModel.searchResponse.observe(viewLifecycleOwner){result ->
@@ -109,7 +116,17 @@ class PlaylistAddSongFragment : Fragment() {
             }
 
         })
+
+        binding.buttonGoBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.doneButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
     }
+
+
 
 }

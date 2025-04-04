@@ -20,10 +20,12 @@ class PlaylistSharedViewModel(private val token : String) : ViewModel() {
     var totalSongs = MutableLiveData<Int> (0)
 
 
-    var songsList = MutableLiveData<ArrayList<SearchSongsItem>> (ArrayList<SearchSongsItem>())
+    var songsList = MutableLiveData<SearchSongs> (SearchSongs())
 
     fun addElementToSongList(song : SearchSongsItem){
-        songsList.value!!.add(song)
+        var currentSong = songsList.value
+        currentSong?.add(song)
+        songsList.value = currentSong!!
         totalSongs.value = songsList.value!!.size
         var currentDuration = totalDuration.value!!
         currentDuration += song.duration
@@ -38,7 +40,9 @@ class PlaylistSharedViewModel(private val token : String) : ViewModel() {
         var currentDuration = totalDuration.value!!
         currentDuration -= song.duration
         totalDuration.value = currentDuration
-        songsList.value!!.remove(song)
+        var currentSong = songsList.value
+        currentSong?.remove(song)
+        songsList.value = currentSong!!
         totalSongs.value = songsList.value!!.size
     }
 

@@ -16,39 +16,30 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddSongSearchAdapter(private val searches : SearchSongs, private val viewModel : PlaylistSharedViewModel) : RecyclerView.Adapter<AddSongSearchAdapter.SearchViewHolder>() {
+class EditSongAdapter(private val searches : SearchSongs, private val viewModel : PlaylistSharedViewModel) : RecyclerView.Adapter<EditSongAdapter.SearchViewHolder>() {
 
     inner class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val songName : TextView = itemView.findViewById(R.id.addSearchSongName)
-        val artistName : TextView = itemView.findViewById(R.id.addSearchArtistName)
-        val songCoverImage : ImageView = itemView.findViewById(R.id.addSongImage)
-        val checkBox : ImageView = itemView.findViewById(R.id.searchCheckIcon)
-        val songDuration : TextView = itemView.findViewById(R.id.addsearchSongDuration)
+        val songName : TextView = itemView.findViewById(R.id.editSearchSongName)
+        val artistName : TextView = itemView.findViewById(R.id.editSearchArtistName)
+        val songCoverImage : ImageView = itemView.findViewById(R.id.editSongImage)
+        val checkBox : ImageView = itemView.findViewById(R.id.editDeleteIcon)
+        val songDuration : TextView = itemView.findViewById(R.id.editsearchSongDuration)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddSongSearchAdapter.SearchViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.add_song_card,parent,false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditSongAdapter.SearchViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.edit_song_card,parent,false)
         return SearchViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AddSongSearchAdapter.SearchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EditSongAdapter.SearchViewHolder, position: Int) {
         val search = searches[position]
-        if(viewModel.isElementThere(search)){
-            holder.checkBox.isSelected = true
-        }
-        holder.checkBox.setOnClickListener {
-            if(viewModel.isElementThere(search)){
-                viewModel.removeElementFromSongList(search)
-                holder.checkBox.isSelected = false
-            }
-            else{
-                viewModel.addElementToSongList(search)
-                holder.checkBox.isSelected = true
-            }
-        }
+
         holder.songName.text = search.songName
         holder.artistName.text = search.artistName
 
+        holder.checkBox.setOnClickListener {
+            viewModel.removeElementFromSongList(search)
+        }
 
         val imgUrl = search.song_image_url
         Picasso.get()

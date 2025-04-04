@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".views.user.CreatePlaylistFragment">
 
     <LinearLayout
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         >
 
         <LinearLayout
@@ -43,7 +44,7 @@
                 android:hint="@string/enter_name"
                 android:fontFamily="@font/bebas_neue"
                 android:textColorHint="@color/inactive_grey"
-                android:textColor="?android:textColorPrimary"
+                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:background="@null"
                 android:id="@+id/createPlaylistName"/>
@@ -129,26 +130,42 @@
             android:elevation="4dp"
             />
 
-        <TextView
+        <LinearLayout
             android:layout_marginTop="20dp"
-            android:layout_marginStart="2dp"
+            android:layout_marginBottom="50dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bebas_neue"
-            android:textColor="?android:textColorPrimary"
-            android:text="@string/add_songs_to_continue"
-            android:textAlignment="center"
-            android:textSize="20sp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="5dp"
-            android:id="@+id/addedSongsRecycler"
-            android:visibility="gone"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:minHeight="400dp"
+            android:layout_gravity="center"
+            android:background="@drawable/color_1_rounded">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:fontFamily="@font/bebas_neue"
+                android:textColor="@color/black"
+                android:text="@string/search_to_continue"
+                android:gravity="center"
+
+                android:id="@+id/noTextView"
+                android:textAlignment="center"
+
+
+                android:textSize="20sp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:minHeight="400dp"
+                android:visibility="gone"
+                android:id="@+id/addedSongsRecycler"
+                />
+        </LinearLayout>
 
 
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

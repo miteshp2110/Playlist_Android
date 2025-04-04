@@ -14,8 +14,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentCreatePlaylistBinding
+import com.xceptions.playlist.utils.EditSongAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.viewmodel.user.PlaylistSharedViewModel
 import com.xceptions.playlist.viewmodel.user.UserViewModelFactory
@@ -73,6 +75,23 @@ class CreatePlaylistFragment : Fragment() {
 
         binding.buttonGoBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.addedSongsRecycler.layoutManager = LinearLayoutManager(this.requireContext())
+        viewModel.songsList.observe(viewLifecycleOwner){response ->
+            if(response != null){
+                if(response.size == 0){
+                    binding.addedSongsRecycler.visibility = View.GONE
+                    binding.noTextView.visibility = View.VISIBLE
+                }
+                else{
+                    val adapter = EditSongAdapter(response,viewModel)
+                    binding.addedSongsRecycler.adapter = adapter
+                    binding.noTextView.visibility = View.GONE
+                    binding.addedSongsRecycler.visibility = View.VISIBLE
+                }
+            }
+
+
         }
 
         return binding.root
