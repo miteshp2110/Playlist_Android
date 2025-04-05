@@ -20,6 +20,9 @@ class UserViewModelFactory(private val token : String) : ViewModelProvider.Facto
         if(modelClass.isAssignableFrom(PlaylistSharedViewModel::class.java)){
             return PlaylistSharedViewModel(token) as T
         }
+        if(modelClass.isAssignableFrom(FavouritesViewModel::class.java)){
+            return FavouritesViewModel(token) as T
+        }
         throw IllegalArgumentException("Unknown Agrument")
     }
 }

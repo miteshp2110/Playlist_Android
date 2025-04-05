@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/account_nav"
+    app:startDestination="@id/favouriteFragment"
+    >
+
+    <fragment
+        android:name="com.xceptions.playlist.views.user.FavouritesFragment"
+        android:id="@+id/favouriteFragment"
+        android:label="Favourite Fragment">
+
+    </fragment>
+
+</navigation>

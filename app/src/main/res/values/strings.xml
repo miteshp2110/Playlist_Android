@@ -51,4 +51,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="done">Done</string>
     <string name="search_to_continue">Search to continue</string>
+    <string name="account">Account</string>
+    <string name="settings">Settings</string>
+    <string name="themes">Themes</string>
+    <string name="about">About</string>
+    <string name="developed_by_mitesh_paliwal">Developed By Mitesh Paliwal</string>
 </resources>

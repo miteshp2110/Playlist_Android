@@ -47,7 +47,7 @@ class UserPlaylistFragment : Fragment() {
         }
 
         binding.createPlaylistButton.setOnClickListener {
-            findNavController().navigate(R.id.playlist_graph)
+            findNavController().navigate(R.id.action_userPlaylistFragment_to_playlist_graph)
         }
 
 

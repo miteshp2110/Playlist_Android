@@ -42,4 +42,7 @@ interface UserApiService {
 
     @POST("playlist/add")
     fun addPlaylist(@Body request : CreatePlaylist) : Call<MessageResponse>
+
+    @GET("favourite/all")
+    suspend fun getAllFavourite(@Query("limit")limit:Int = 999) : Response<GetAllFavourites>
 }

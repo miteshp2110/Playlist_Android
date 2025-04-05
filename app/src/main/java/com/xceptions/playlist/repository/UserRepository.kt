@@ -30,6 +30,9 @@ class UserRepository(private val token : String) {
     private var _homeFavourite = MutableLiveData<GetAllFavourites?>()
     val homeFavourites : LiveData<GetAllFavourites?> = _homeFavourite
 
+    private var _allFavourite = MutableLiveData<GetAllFavourites?>()
+    val allFavourites : LiveData<GetAllFavourites?> = _allFavourite
+
     private var _searchSongResult = MutableLiveData<SearchSongs?> ()
     val searchSongResult : LiveData<SearchSongs?> = _searchSongResult
 
@@ -86,6 +89,23 @@ class UserRepository(private val token : String) {
         catch (e:Exception){
 
             _homeFavourite.value = null
+        }
+    }
+
+    suspend fun getAllFavourite(){
+        try{
+            val response : Response<GetAllFavourites> = apiService.getAllFavourite()
+            if(response.isSuccessful){
+
+                _allFavourite.value = response.body()
+            }
+            else{
+                _allFavourite.value = null
+            }
+        }
+        catch (e:Exception){
+
+            _allFavourite.value = null
         }
     }
 

@@ -41,8 +41,19 @@
         android:id="@+id/userAccountFragment"
         android:name="com.xceptions.playlist.views.user.UserAccountFragment"
         android:label="Account"
-        tools:layout="@layout/fragment_user_account" />
+        tools:layout="@layout/fragment_user_account" >
+
+        <action
+            android:id="@+id/action_to_fav"
+            app:destination="@id/account_nav"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_left_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_right_exit" />
+
+    </fragment>
 
     <!-- Include nested graph -->
     <include app:graph="@navigation/playlist_graph" />
+    <include app:graph="@navigation/account_nav"/>
 </navigation>
