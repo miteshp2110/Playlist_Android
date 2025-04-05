@@ -30,7 +30,7 @@ class UserRepository(private val token : String) {
     private var _homeFavourite = MutableLiveData<GetAllFavourites?>()
     val homeFavourites : LiveData<GetAllFavourites?> = _homeFavourite
 
-    private var _allFavourite = MutableLiveData<GetAllFavourites?>()
+    var _allFavourite = MutableLiveData<GetAllFavourites?>()
     val allFavourites : LiveData<GetAllFavourites?> = _allFavourite
 
     private var _searchSongResult = MutableLiveData<SearchSongs?> ()
