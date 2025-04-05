@@ -38,10 +38,19 @@ class UserSearchFragment : Fragment() {
 
         viewModel.searchResponse.observe(viewLifecycleOwner){result ->
             if(result!=null){
-                val searchAdapter = SearchResultAdapter(result,viewModel)
-                binding.searchRecycler.adapter = searchAdapter
-                binding.searchProgress.visibility = View.GONE
-                binding.searchRecycler.visibility = View.VISIBLE
+                if(result.size == 0){
+                    binding.searchRecycler.visibility = View.GONE
+                    binding.searchProgress.visibility = View.GONE
+                    binding.beforeSearch.visibility = View.VISIBLE
+                }
+                else{
+                    val searchAdapter = SearchResultAdapter(result,viewModel)
+                    binding.searchRecycler.adapter = searchAdapter
+                    binding.searchProgress.visibility = View.GONE
+                    binding.beforeSearch.visibility = View.GONE
+                    binding.searchRecycler.visibility = View.VISIBLE
+                }
+
             }
         }
 
@@ -60,9 +69,12 @@ class UserSearchFragment : Fragment() {
                     s?.toString()?.let { query ->
                         if (query.isNotEmpty()) {
                             viewModel.searchSong(query)
+                            binding.beforeSearch.visibility = View.GONE
                             binding.searchProgress.visibility = View.VISIBLE
+
                         }
                         else{
+                            binding.beforeSearch.visibility = View.VISIBLE
                             binding.searchRecycler.visibility = View.GONE
                         }
                     }

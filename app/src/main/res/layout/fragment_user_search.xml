@@ -57,6 +57,16 @@
         android:visibility="gone"
         />
 
+    <TextView
+        android:id="@+id/beforeSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/search_to_continue"
+        android:fontFamily="@font/bebas_neue"
+        android:textColor="@color/inactive_grey"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"/>
 
 
 
