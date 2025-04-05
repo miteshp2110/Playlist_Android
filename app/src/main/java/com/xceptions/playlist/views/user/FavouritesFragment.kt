@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentFavouritesBinding
@@ -52,6 +53,9 @@ class FavouritesFragment : Fragment() {
                     binding.favouriteSongsRecycler.visibility = View.VISIBLE
                 }
             }
+        }
+        binding.buttonGoBack.setOnClickListener {
+            findNavController().popBackStack()
         }
         return binding.root
     }

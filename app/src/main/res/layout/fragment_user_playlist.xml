@@ -40,11 +40,12 @@
         <TextView
             android:id="@+id/noListText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:textAlignment="center"
             android:fontFamily="@font/bebas_neue"
             android:text="@string/no_playlists_found"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/inactive_grey"
             android:textSize="20sp"
             android:layout_marginTop="10sp"
             android:visibility="gone"/>
