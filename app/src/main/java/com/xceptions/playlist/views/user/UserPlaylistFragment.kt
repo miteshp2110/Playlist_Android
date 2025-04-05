@@ -31,7 +31,7 @@ class UserPlaylistFragment : Fragment() {
     ): View {
         _binding = FragmentUserPlaylistBinding.inflate(inflater,container,false)
 
-
+        viewModel.getAllPlaylist()
         binding.playlistRecycler.layoutManager = LinearLayoutManager(this.requireContext())
         viewModel.getAllPlaylistResponse.observe(viewLifecycleOwner){response ->
             if (response == null){

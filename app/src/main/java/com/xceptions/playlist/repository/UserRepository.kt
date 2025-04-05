@@ -8,6 +8,7 @@ import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.favourites.GetAllFavourites
 import com.xceptions.playlist.model.favourites.AddFavourite
 import com.xceptions.playlist.model.favourites.RemoveFavourite
+import com.xceptions.playlist.model.playlist.CreatePlaylist
 import com.xceptions.playlist.model.playlist.GetAllPlaylist
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.model.song.SearchSongs
@@ -156,6 +157,29 @@ class UserRepository(private val token : String) {
 
             _getAllPlaylistResult.value = null
         }
+    }
+
+    fun addPlaylist(name : String , songList : List<Int>) : LiveData<MessageResponse?>{
+        val _addPlaylistResponse = MutableLiveData<MessageResponse?>()
+
+        apiService.addPlaylist(CreatePlaylist(name,songList)).enqueue(object : Callback<MessageResponse>{
+            override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                Log.d("adding",response.body().toString())
+                if(response.isSuccessful){
+                    _addPlaylistResponse.value = response.body()
+                }
+                else{
+                    _addPlaylistResponse.value = null
+                }
+            }
+
+            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                Log.d("adding","Failed")
+                _addPlaylistResponse.value = null
+            }
+
+        })
+        return _addPlaylistResponse
     }
 
 }

@@ -59,7 +59,9 @@ class CreatePlaylistFragment : Fragment() {
                 Toast.makeText(this.requireContext(),"All Fields Required",Toast.LENGTH_SHORT).show()
             }
             else{
-                Log.d("playlist","${viewModel.createPlayListName} ${viewModel.songsList}")
+                viewModel.addToPlaylist()
+                Toast.makeText(this.requireContext(),"Added Playlist ${viewModel.createPlayListName}",Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             }
         }
 

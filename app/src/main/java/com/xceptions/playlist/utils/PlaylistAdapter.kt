@@ -40,7 +40,6 @@ class PlaylistAdapter(private val playlists : GetAllPlaylist) : RecyclerView.Ada
         val min : Int = dur/60
         val secInt : Int = dur - min*60
         val secStr : String = min.toString()+":"+if(secInt<10){"0"+secInt.toString()}else{secInt.toString()}
-        Log.d("playlist",secStr)
         holder.playlistDuration.text = secStr
 
         holder.playlistPlayButton.setOnClickListener{

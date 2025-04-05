@@ -1,5 +1,6 @@
 package com.xceptions.playlist.viewmodel.user
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,5 +56,19 @@ class PlaylistSharedViewModel(private val token : String) : ViewModel() {
         }
     }
 
+    fun addToPlaylist(){
+        viewModelScope.launch {
+            if(createPlayListName!="" && songsList.value?.size!=0){
+
+                var addSongList = mutableListOf<Int>()
+                songsList.value?.forEach { song ->
+                    addSongList.add(song.songId)
+                }
+                userRepository.addPlaylist(createPlayListName,addSongList)
+                userRepository.getAllPlaylist()
+            }
+
+        }
+    }
 
 }

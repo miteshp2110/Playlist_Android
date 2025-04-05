@@ -5,6 +5,7 @@ import com.xceptions.playlist.model.artist.GetAllArtist
 import com.xceptions.playlist.model.favourites.GetAllFavourites
 import com.xceptions.playlist.model.favourites.AddFavourite
 import com.xceptions.playlist.model.favourites.RemoveFavourite
+import com.xceptions.playlist.model.playlist.CreatePlaylist
 import com.xceptions.playlist.model.playlist.GetAllPlaylist
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.model.song.SearchSongs
@@ -38,4 +39,7 @@ interface UserApiService {
 
     @GET("playlist/get")
     suspend fun getAllPlaylist() : Response<GetAllPlaylist>
+
+    @POST("playlist/add")
+    fun addPlaylist(@Body request : CreatePlaylist) : Call<MessageResponse>
 }
