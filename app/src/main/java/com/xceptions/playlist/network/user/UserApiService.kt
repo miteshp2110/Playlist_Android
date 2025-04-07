@@ -7,6 +7,7 @@ import com.xceptions.playlist.model.favourites.AddFavourite
 import com.xceptions.playlist.model.favourites.RemoveFavourite
 import com.xceptions.playlist.model.playlist.CreatePlaylist
 import com.xceptions.playlist.model.playlist.GetAllPlaylist
+import com.xceptions.playlist.model.song.GetSongsByArtist
 import com.xceptions.playlist.model.song.GetTrendingSongs
 import com.xceptions.playlist.model.song.SearchSongs
 import retrofit2.Call
@@ -45,4 +46,7 @@ interface UserApiService {
 
     @GET("favourite/all")
     suspend fun getAllFavourite(@Query("limit")limit:Int = 999) : Response<GetAllFavourites>
+
+    @GET("songs/artist/")
+    suspend fun getSongsByArtist(@Query("id") id:Int) : Response<GetSongsByArtist>
 }

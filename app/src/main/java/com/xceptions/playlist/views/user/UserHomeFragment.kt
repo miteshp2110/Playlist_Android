@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentUserHomeBinding
 import com.xceptions.playlist.utils.FavouriteAdapter
+import com.xceptions.playlist.utils.OnArtistClickListener
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.utils.TopArtistAdapter
 import com.xceptions.playlist.utils.TrendingAdapter
@@ -37,6 +40,8 @@ class UserHomeFragment : Fragment() {
 //    private var playbackPosition: Long = 0
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,18 +57,33 @@ class UserHomeFragment : Fragment() {
         }
 
         viewModel._topArtist.observe(viewLifecycleOwner){response ->
-            val artistAdapter = TopArtistAdapter(response!!)
+            val artistAdapter = TopArtistAdapter(response!!,object : OnArtistClickListener{
+                override fun onArtistClick(artistId: Int, artistName: String, artistImage: String) {
+                    findNavController().navigate(R.id.action_userHomeFragment_to_artistFragment)
+                }
+
+            })
             binding.artistRecycler.adapter = artistAdapter
         }
 
         viewModel._homeFavourite.observe(viewLifecycleOwner){response ->
+
             if(response!!.size == 0){
                 binding.favouriteRecycler.visibility = View.GONE
                 binding.noFavText.visibility = View.VISIBLE
+
             }
             else{
                 val favAdapter = FavouriteAdapter(response)
                 binding.favouriteRecycler.adapter = favAdapter
+
+            }
+        }
+
+        viewModel.resourceCount.observe(viewLifecycleOwner){response ->
+            if(response == 3){
+                binding.progressBar.visibility = View.GONE
+                binding.mainContent.visibility = View.VISIBLE
             }
         }
 

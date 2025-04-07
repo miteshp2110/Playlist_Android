@@ -1,6 +1,7 @@
 package com.xceptions.playlist.viewmodel.user
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xceptions.playlist.model.artist.GetAllArtist
@@ -15,27 +16,32 @@ class UserHomeViewModel(private val token : String) : ViewModel() {
     var _trendingSongs:LiveData<GetTrendingSongs?> = userRepository.trendingSongs
     var _topArtist:LiveData<GetAllArtist?> = userRepository.topArtist
     var _homeFavourite:LiveData<GetAllFavourites?> = userRepository.homeFavourites
+    var resourceCount = MutableLiveData<Int>(0)
 
     init {
         getTrendingSongs()
         getTopArtist()
         getHomeFavourite()
+
     }
 
     private fun getTrendingSongs(){
         viewModelScope.launch {
             userRepository.getTrendingSongs()
+            resourceCount.value = resourceCount.value!!+1
         }
     }
 
     private fun getTopArtist(){
         viewModelScope.launch {
             userRepository.getTopArtist()
+            resourceCount.value = resourceCount.value!!+1
         }
     }
     private fun getHomeFavourite(){
         viewModelScope.launch {
             userRepository.getHomeFavourite()
+            resourceCount.value = resourceCount.value!!+1
         }
     }
 
