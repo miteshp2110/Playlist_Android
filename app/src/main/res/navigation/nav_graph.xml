@@ -13,7 +13,18 @@
         tools:layout="@layout/fragment_user_home" >
         <action
             android:id="@+id/action_userHomeFragment_to_artistFragment"
-            app:destination="@id/artistFragment" />
+            app:destination="@id/artistFragment" >
+            <argument
+                android:name="artistName"
+                app:argType="string"/>
+            <argument
+                android:name="artistProfile"
+                app:argType="string"/>
+            <argument
+                android:name="artistId"
+                app:argType="integer"/>
+
+        </action>
     </fragment>
 
     <!-- Search Fragment -->
@@ -64,5 +75,15 @@
         android:id="@+id/artistFragment"
         android:name="com.xceptions.playlist.views.user.ArtistFragment"
         android:label="fragment_artist"
-        tools:layout="@layout/fragment_artist" />
+        tools:layout="@layout/fragment_artist" >
+        <argument
+            android:name="artistName"
+            app:argType="string"/>
+        <argument
+            android:name="artistProfile"
+            app:argType="string"/>
+        <argument
+            android:name="artistId"
+            app:argType="integer"/>
+    </fragment>
 </navigation>

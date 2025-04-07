@@ -47,6 +47,6 @@ interface UserApiService {
     @GET("favourite/all")
     suspend fun getAllFavourite(@Query("limit")limit:Int = 999) : Response<GetAllFavourites>
 
-    @GET("songs/artist/")
+    @GET("song/artist/")
     suspend fun getSongsByArtist(@Query("id") id:Int) : Response<GetSongsByArtist>
 }

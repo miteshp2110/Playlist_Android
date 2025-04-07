@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        app:contentPadding="10dp"
+        app:contentPadding="4dp"
         app:cardCornerRadius="15dp"
         android:clickable="true"
         android:background="@drawable/color_1_rounded"
@@ -21,8 +21,8 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:shapeAppearanceOverlay="@style/roundedImageView"
                 android:background="@drawable/placeholder"
                 android:id="@+id/playlistImage"/>
@@ -41,7 +41,7 @@
                     android:fontFamily="@font/bebas_neue"
                     android:textColor="?android:textColorPrimary"
                     android:id="@+id/playlistName"
-                    android:textSize="35sp"/>
+                    android:textSize="25sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                         android:fontFamily="@font/bebas_neue"
                         android:textColor="?android:textColorPrimary"
                         android:text="@string/songs_"
-                        android:textSize="20sp"/>
+                        android:textSize="15sp"/>
                     <TextView
                         android:id="@+id/playlistTotalSongs"
                         android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                         android:fontFamily="@font/bebas_neue"
                         android:textColor="?android:textColorPrimary"
                         android:layout_marginStart="2dp"
-                        android:textSize="20sp"/>
+                        android:textSize="15sp"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -82,7 +82,7 @@
                         android:fontFamily="@font/bebas_neue"
                         android:textColor="?android:textColorPrimary"
                         android:text="@string/duration"
-                        android:textSize="20sp"/>
+                        android:textSize="15sp"/>
                     <TextView
                         android:id="@+id/playlistTotalDuration"
                         android:layout_width="wrap_content"
@@ -93,13 +93,13 @@
                         android:fontFamily="@font/bebas_neue"
                         android:textColor="?android:textColorPrimary"
                         android:layout_marginStart="2dp"
-                        android:textSize="20sp"/>
+                        android:textSize="15sp"/>
 
                 </LinearLayout>
             </LinearLayout>
             <ImageView
                 android:id="@+id/playlistPlayButton"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_play"

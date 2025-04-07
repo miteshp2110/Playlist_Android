@@ -59,7 +59,8 @@ class UserHomeFragment : Fragment() {
         viewModel._topArtist.observe(viewLifecycleOwner){response ->
             val artistAdapter = TopArtistAdapter(response!!,object : OnArtistClickListener{
                 override fun onArtistClick(artistId: Int, artistName: String, artistImage: String) {
-                    findNavController().navigate(R.id.action_userHomeFragment_to_artistFragment)
+                    val action = UserHomeFragmentDirections.actionUserHomeFragmentToArtistFragment(artistName,artistImage,artistId)
+                    findNavController().navigate(action)
                 }
 
             })

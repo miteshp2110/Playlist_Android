@@ -88,9 +88,6 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Displays a non-cancelable dialog asking the user to retry if no internet connection is found.
-     */
     private fun showRetryDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("No Internet Connection")
@@ -108,9 +105,7 @@ class SplashActivity : AppCompatActivity() {
             .show()
     }
 
-    /**
-     * Utility function to check internet connectivity.
-     */
+
     private fun isInternetAvailable(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
