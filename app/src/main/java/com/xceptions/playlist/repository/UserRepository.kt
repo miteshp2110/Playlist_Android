@@ -12,6 +12,7 @@ import com.xceptions.playlist.model.playlist.CreatePlaylist
 import com.xceptions.playlist.model.playlist.GetAllPlaylist
 import com.xceptions.playlist.model.song.GetSongsByArtist
 import com.xceptions.playlist.model.song.GetTrendingSongs
+import com.xceptions.playlist.model.song.MiniPlayerSong
 import com.xceptions.playlist.model.song.SearchSongs
 import com.xceptions.playlist.network.user.RetrofitClient
 import com.xceptions.playlist.network.user.UserApiService
@@ -42,6 +43,9 @@ class UserRepository(private val token : String) {
 
     private val _songsByArtist = MutableLiveData<GetSongsByArtist?>()
     val songsByArtist : LiveData<GetSongsByArtist?> = _songsByArtist
+
+    private val _getSongById = MutableLiveData<MiniPlayerSong?>()
+    val getSongById : LiveData<MiniPlayerSong?> = _getSongById
 
     suspend fun searchSongs(name : String){
         try{
@@ -225,4 +229,21 @@ class UserRepository(private val token : String) {
         return _addPlaylistResponse
     }
 
+    suspend fun getSongsById(id:Int){
+        try{
+            val response : Response<MiniPlayerSong> = apiService.getSongById(id)
+
+            if(response.isSuccessful){
+                _getSongById.postValue(response.body())
+            }
+            else{
+
+                _getSongById.postValue(null)
+            }
+        }
+        catch (e:Exception){
+
+            _getSongById.postValue(null)
+        }
+    }
 }

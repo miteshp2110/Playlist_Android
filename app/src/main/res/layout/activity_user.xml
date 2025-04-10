@@ -13,8 +13,90 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"/>
+        app:defaultNavHost="true"
+        />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="-20dp"
+        android:clickable="true"
+        android:visibility="gone"
+        android:id="@+id/miniplayer"
+        android:background="@color/pink1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <SeekBar
+                android:padding="1dp"
+                android:id="@+id/miniplayer_seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:thumbTint="@color/black"
+                android:progressTint="@color/black"
+                />
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/placeholder"
+                app:shapeAppearanceOverlay="@style/roundedImageViewSmall"
+                android:id="@+id/miniplayer_songImage"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/bebas_neue"
+                    android:textSize="15sp"
+                    android:id="@+id/miniplayer_songName"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/bebas_neue"
+                    android:textSize="11sp"
+                    android:id="@+id/miniplayer_artistName"/>
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:clickable="true"
+                android:id="@+id/miniplayer_playPauseButton"
+                android:padding="12dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_pause"
+                android:layout_marginEnd="20dp"
+                app:tint="@color/black"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
     <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavBar"
@@ -28,32 +110,32 @@
 
         <LinearLayout android:id="@+id/nav_home" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:background="@drawable/nav_item_ripple" android:clickable="true" android:focusable="true"
-            android:padding="10dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
-            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/icon_home"/>
+            android:padding="8dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/icon_home"/>
         </LinearLayout>
 
         <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
 
         <LinearLayout android:id="@+id/nav_search" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:background="@drawable/nav_item_ripple" android:clickable="true" android:focusable="true"
-            android:padding="10dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
-            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/icon_search"/>
+            android:padding="8dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/icon_search"/>
         </LinearLayout>
 
         <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
 
         <LinearLayout android:id="@+id/nav_playlist" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:background="@drawable/nav_item_ripple" android:clickable="true" android:focusable="true"
-            android:padding="10dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
-            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/icon_playlist"/>
+            android:padding="8dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/icon_playlist"/>
         </LinearLayout>
 
         <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
 
         <LinearLayout android:id="@+id/nav_account" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:background="@drawable/nav_item_ripple" android:clickable="true" android:focusable="true"
-            android:padding="10dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
-            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/icon_account"/>
+            android:padding="8dp" android:elevation="3dp" android:layout_margin="7dp" android:gravity="center">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/icon_account"/>
         </LinearLayout>
 
         <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />

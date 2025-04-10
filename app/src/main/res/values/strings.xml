@@ -56,4 +56,6 @@
     <string name="themes">Themes</string>
     <string name="about">About</string>
     <string name="developed_by_mitesh_paliwal">Developed By Mitesh Paliwal</string>
+    <string name="start_listening">Start Listening</string>
+    <string name="recents">Recents</string>
 </resources>

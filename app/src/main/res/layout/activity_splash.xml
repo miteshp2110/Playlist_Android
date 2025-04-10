@@ -10,7 +10,7 @@
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="50dp"
-        android:layout_height="700dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:layout_gravity="center"
         />

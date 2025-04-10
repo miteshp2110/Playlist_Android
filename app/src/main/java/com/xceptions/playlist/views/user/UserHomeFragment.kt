@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,9 +22,11 @@ import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentUserHomeBinding
 import com.xceptions.playlist.utils.FavouriteAdapter
 import com.xceptions.playlist.utils.OnArtistClickListener
+import com.xceptions.playlist.utils.OnSongClickListener
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.utils.TopArtistAdapter
 import com.xceptions.playlist.utils.TrendingAdapter
+import com.xceptions.playlist.viewmodel.user.UserActivityViewModel
 import com.xceptions.playlist.viewmodel.user.UserHomeViewModel
 import com.xceptions.playlist.viewmodel.user.UserViewModelFactory
 
@@ -32,12 +36,7 @@ class UserHomeFragment : Fragment() {
     private val token: String by lazy { SecurePrefManager.getJwtToken(requireContext()) ?: "null" }
     private val binding get() = _binding!!
     private val viewModel: UserHomeViewModel by viewModels{UserViewModelFactory(token)}
-
-//    private var player: ExoPlayer? = null
-//    private lateinit var playerView: PlayerView
-//    private var playWhenReady = true
-//    private var currentItem = 0
-//    private var playbackPosition: Long = 0
+    private val viewModelActivity : UserActivityViewModel by activityViewModels{UserViewModelFactory(token)}
 
 
 
@@ -46,13 +45,19 @@ class UserHomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentUserHomeBinding.inflate(inflater,container,false)
         binding.trendingRecycler.layoutManager = LinearLayoutManager(this.requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.artistRecycler.layoutManager = LinearLayoutManager(this.requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.favouriteRecycler.layoutManager = GridLayoutManager(this.requireContext(),2)
-
+        binding.recentRecycler.layoutManager = GridLayoutManager(this.requireContext(),2)
         viewModel._trendingSongs.observe(viewLifecycleOwner){response ->
-            val trendingAdapter = TrendingAdapter(response!!)
+            val trendingAdapter = TrendingAdapter(response!!,object : OnSongClickListener{
+                override fun onClick(songId: Int) {
+                    viewModelActivity.playSong(songId)
+                }
+
+            })
             binding.trendingRecycler.adapter = trendingAdapter
         }
 
@@ -67,6 +72,8 @@ class UserHomeFragment : Fragment() {
             binding.artistRecycler.adapter = artistAdapter
         }
 
+
+
         viewModel._homeFavourite.observe(viewLifecycleOwner){response ->
 
             if(response!!.size == 0){
@@ -80,6 +87,19 @@ class UserHomeFragment : Fragment() {
 
             }
         }
+        viewModel._homeFavourite.observe(viewLifecycleOwner){response ->
+
+            if(response!!.size == 0){
+                binding.recentRecycler.visibility = View.GONE
+                binding.noRecentText.visibility = View.VISIBLE
+
+            }
+            else{
+                val recentAdapter = FavouriteAdapter(response)
+                binding.recentRecycler.adapter = recentAdapter
+
+            }
+        }
 
         viewModel.resourceCount.observe(viewLifecycleOwner){response ->
             if(response == 3){
@@ -88,65 +108,8 @@ class UserHomeFragment : Fragment() {
             }
         }
 
-//        playerView = binding.playerView
-//
-//        // **Replace with your actual internet music URI**
-//        val musicUriString = "https://playlist-backend.tech/service/stream/listen?id=6"
-//        val musicUri = Uri.parse(musicUriString)
-//
-//        initializePlayer(musicUri)
-
 
         return binding.root
     }
 
-//    private fun initializePlayer(mediaUri: Uri) {
-//        player = ExoPlayer.Builder(this.requireContext()).build().also { exoPlayer ->
-//            playerView.player = exoPlayer
-//            val mediaItem = MediaItem.fromUri(mediaUri)
-//            exoPlayer.setMediaItem(mediaItem)
-//            exoPlayer.playWhenReady = playWhenReady
-//            exoPlayer.seekTo(currentItem, playbackPosition)
-//            exoPlayer.prepare()
-//        }
-//    }
-//
-//    private fun releasePlayer() {
-//        player?.let { exoPlayer ->
-//            playbackPosition = exoPlayer.currentPosition
-//            currentItem = exoPlayer.currentMediaItemIndex
-//            playWhenReady = exoPlayer.playWhenReady
-//            exoPlayer.release()
-//            player = null
-//        }
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        if (player == null) {
-//            // **Replace with your actual internet music URI**
-//            val musicUriString = "https://playlist-backend.tech/service/stream/listen?id=6"
-//            val musicUri = Uri.parse(musicUriString)
-//            initializePlayer(musicUri)
-//        }
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        if (player != null) {
-//            player?.playWhenReady = playWhenReady
-//        }
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        if (player != null) {
-//            playWhenReady = player!!.playWhenReady
-//        }
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        releasePlayer()
-//    }
 }

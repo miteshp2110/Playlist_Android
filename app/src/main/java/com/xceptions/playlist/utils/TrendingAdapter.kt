@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
 import com.xceptions.playlist.model.song.GetTrendingSongs
 
-class TrendingAdapter (private val trending : GetTrendingSongs):RecyclerView.Adapter<TrendingAdapter.TrendingViewHolder>() {
+class TrendingAdapter (private val trending : GetTrendingSongs,private val onSongClickListener: OnSongClickListener):RecyclerView.Adapter<TrendingAdapter.TrendingViewHolder>() {
     inner class TrendingViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val songName : TextView = itemView.findViewById(R.id.trendingSongName)
         val songImage : ImageView = itemView.findViewById(R.id.songImage)
+        val trendingCard : LinearLayout = itemView.findViewById(R.id.trendingSongCard)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingViewHolder {
@@ -32,5 +34,8 @@ class TrendingAdapter (private val trending : GetTrendingSongs):RecyclerView.Ada
         Picasso.get()
             .load(image_url)
             .into(holder.songImage)
+        holder.trendingCard.setOnClickListener{
+            onSongClickListener.onClick(trendingSong.id)
+        }
     }
 }

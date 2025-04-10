@@ -26,6 +26,9 @@ class UserViewModelFactory(private val token : String) : ViewModelProvider.Facto
         if(modelClass.isAssignableFrom(ArtistViewModel::class.java)){
             return ArtistViewModel(token) as T
         }
+        if(modelClass.isAssignableFrom(UserActivityViewModel::class.java)){
+            return UserActivityViewModel(token) as T
+        }
         throw IllegalArgumentException("Unknown Agrument")
     }
 }

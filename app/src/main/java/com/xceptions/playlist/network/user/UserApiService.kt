@@ -9,8 +9,10 @@ import com.xceptions.playlist.model.playlist.CreatePlaylist
 import com.xceptions.playlist.model.playlist.GetAllPlaylist
 import com.xceptions.playlist.model.song.GetSongsByArtist
 import com.xceptions.playlist.model.song.GetTrendingSongs
+import com.xceptions.playlist.model.song.MiniPlayerSong
 import com.xceptions.playlist.model.song.SearchSongs
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -49,4 +51,7 @@ interface UserApiService {
 
     @GET("song/artist/")
     suspend fun getSongsByArtist(@Query("id") id:Int) : Response<GetSongsByArtist>
+
+    @GET("song/player/")
+    suspend fun getSongById(@Query("id")id:Int): Response<MiniPlayerSong>
 }
