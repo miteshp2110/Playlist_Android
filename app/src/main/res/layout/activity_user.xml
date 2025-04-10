@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layoutDescription="@xml/activity_user_scene">
 
     <!-- Navigation Host Fragment -->
     <androidx.fragment.app.FragmentContainerView
@@ -20,96 +21,282 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-
     <LinearLayout
-        android:id="@+id/miniplayer"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/miniplayer_songImage"
+        app:layout_constraintEnd_toEndOf="@id/miniplayer"
+        app:layout_constraintStart_toStartOf="@id/miniplayer">
+
+        <SeekBar
+            android:id="@+id/miniplayer_seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:progressTint="@color/black"
+            android:thumbTint="@color/black" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/closeExtendedPlayer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0"
+        android:src="@drawable/icon_back"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/extendedPlayer_songName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:alpha="0"
+        android:ellipsize="end"
+        android:fontFamily="@font/bebas_neue"
+        android:singleLine="true"
+        android:text="Aabad Barbaad"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="@id/mainLayout"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="@id/mainLayout"
+        app:layout_constraintTop_toBottomOf="@id/miniplayer_songImage" />
+
+    <TextView
+        android:id="@+id/extendedPlayer_artistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:alpha="0"
+        android:ellipsize="end"
+        android:fontFamily="@font/bebas_neue"
+        android:singleLine="true"
+        android:text="Arijit Singh"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="@id/mainLayout"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="@id/mainLayout"
+        app:layout_constraintTop_toBottomOf="@id/extendedPlayer_songName" />
+
+    <LinearLayout
+        android:id="@+id/widgetsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:alpha="0"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/extendedPlayer_artistName">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_repeat_inactive" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_download" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_share" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_favourite_inactive" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/extendedPlayer_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:alpha="0"
+        android:padding="5dp"
+        android:progressTint="@color/black"
+        android:thumbTint="@color/black"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/widgetsContainer" />
+
+    <LinearLayout
+        android:id="@+id/extendedPlayer_controllerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:alpha="0"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/extendedPlayer_seekBar">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/icon_previous" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_pause" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/icon_next" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/miniplayer_songImage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/placeholder"
+        android:scaleType="centerCrop"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/miniplayer"
+        app:layout_constraintEnd_toEndOf="@+id/miniplayer"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@id/miniplayer"
+        app:layout_constraintTop_toTopOf="@id/miniplayer"
+        app:layout_constraintVertical_bias="0.25"
+        app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
+
+    <ImageView
+        android:id="@+id/miniplayer_playPauseButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:padding="12dp"
+        android:src="@drawable/icon_pause"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/miniplayer_songImage"
+        app:layout_constraintEnd_toEndOf="@id/miniplayer"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/textsLayout"
+        app:layout_constraintTop_toTopOf="@id/miniplayer_songImage"
+        app:tint="@color/black" />
+
+    <LinearLayout
+
+        android:id="@+id/textsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/miniplayer_songImage"
+        app:layout_constraintEnd_toStartOf="@id/miniplayer_playPauseButton"
+        app:layout_constraintStart_toEndOf="@id/miniplayer_songImage"
+        app:layout_constraintTop_toTopOf="@id/miniplayer_songImage">
+
+        <TextView
+            android:id="@+id/miniplayer_songName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/bebas_neue"
+            android:singleLine="true"
+            android:text="Aabad Barbaad"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/miniplayer_artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/bebas_neue"
+            android:singleLine="true"
+            android:text="Arijit Singh"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/miniplayer"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginBottom="-20dp"
         android:background="@color/pink1"
         android:clickable="true"
         android:orientation="vertical"
         android:visibility="visible"
-        android:layout_marginBottom="-20dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="@id/mainLayout"
         app:layout_constraintStart_toStartOf="@id/mainLayout"
         app:layout_constraintTop_toTopOf="@id/mainLayout"
         app:layout_constraintVertical_bias="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <SeekBar
-                android:id="@+id/miniplayer_seekBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:progressTint="@color/black"
-                android:thumbTint="@color/black" />
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/miniplayer_songImage"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="5dp"
-                android:background="@drawable/placeholder"
-                app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/miniplayer_songName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/bebas_neue"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/miniplayer_artistName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/bebas_neue"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/miniplayer_playPauseButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="20dp"
-                android:clickable="true"
-                android:padding="12dp"
-                android:src="@drawable/icon_pause"
-                app:tint="@color/black" />
-
-        </LinearLayout>
 
     </LinearLayout>
     <!-- Bottom Navigation -->
@@ -224,4 +411,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

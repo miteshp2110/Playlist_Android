@@ -28,6 +28,15 @@ class UserActivity : AppCompatActivity() {
     private val token: String by lazy { SecurePrefManager.getJwtToken(this) ?: "null" }
     private val viewModel : UserActivityViewModel by viewModels{UserViewModelFactory(token)}
 
+    override fun onBackPressed() {
+        if(binding.mainLayout.currentState==R.id.end){
+            binding.mainLayout.transitionToStart()
+        }
+        else{
+            super.onBackPressed()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -95,10 +104,12 @@ class UserActivity : AppCompatActivity() {
 
     }
 
+
     private fun setActiveNavItem(selectedItemId: Int) {
         binding.navHome.isSelected = binding.navHome.id == selectedItemId
         binding.navSearch.isSelected = binding.navSearch.id == selectedItemId
         binding.navPlaylist.isSelected = binding.navPlaylist.id == selectedItemId
         binding.navAccount.isSelected = binding.navAccount.id == selectedItemId
     }
+
 }
