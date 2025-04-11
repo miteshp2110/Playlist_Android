@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -42,7 +43,6 @@ class UserActivity : AppCompatActivity() {
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val miniPlayer = binding.miniplayer
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         if (navHostFragment != null) {
@@ -87,14 +87,24 @@ class UserActivity : AppCompatActivity() {
         // miniplayer stuff
 
 
-        viewModel.currentSongId.observe(this){response ->
-            if(response!=null){
+        viewModel.currentSongId.observe(this) { response ->
+            if (response != null) {
+                Toast.makeText(this, "Found", Toast.LENGTH_SHORT).show()
                 binding.miniplayerSongName.text = response.name
                 binding.miniplayerArtistName.text = response.artist
                 Picasso.get().load(response.song_image_url).into(binding.miniplayerSongImage)
-                binding.miniplayer.visibility = View.VISIBLE
+                binding.extendedPlayerSongName.text = response.name
+                binding.extendedPlayerArtistName.text = response.artist
+                binding.miniplayerSongImage.alpha = 1F
+//                binding.linearLayout.visibility = View.VISIBLE
+//                binding.miniplayerPlayPauseButton.visibility = View.VISIBLE
+//                binding.textsLayout.visibility = View.VISIBLE
+//                binding.miniplayer.visibility = View.VISIBLE
+
+
             }
         }
+
 
 
 

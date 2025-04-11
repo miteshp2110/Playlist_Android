@@ -6,8 +6,12 @@
          <item name="colorOnPrimarySurface">@color/pink2</item>
         <item name="colorAccent">@color/pink4</item>
         <item name="colorOnPrimary">@color/pink2</item>
+        <item name="android:colorEdgeEffect">@color/black</item>
+
+        <item name="color">@color/pink1</item>
 
 <!--        <item name="android:background">@color/pink2</item>-->
+
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:windowBackground">@color/pink2</item>
         <item name="android:windowSplashScreenBackground">@color/pink2</item>

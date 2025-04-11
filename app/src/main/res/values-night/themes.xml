@@ -7,12 +7,13 @@
         <item name="colorOnPrimarySurface">@color/pink2</item>
         <item name="colorAccent">@color/pink4</item>
         <item name="colorOnPrimary">@color/pink2</item>
-
+        <item name="android:colorEdgeEffect">@color/pink4</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/avd_anim</item>
         <item name="android:textColorPrimary">@color/pink2</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="android:windowSplashScreenBackground">@color/black</item>
         <item name="android:statusBarColor">@color/black</item>
+        <item name="color">@color/black</item>
         <item name="android:navigationBarColor">@color/pink3</item>
     </style>
 </resources>

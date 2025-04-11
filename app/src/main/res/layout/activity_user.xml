@@ -35,9 +35,8 @@
             android:id="@+id/miniplayer_seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:progressTint="@color/black"
-            android:thumbTint="@color/black" />
+            android:progressTint="?android:colorEdgeEffect"
+            android:thumbTint="?android:colorEdgeEffect" />
     </LinearLayout>
 
     <ImageView
@@ -62,8 +61,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/bebas_neue"
         android:singleLine="true"
-        android:text="Aabad Barbaad"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:textSize="30sp"
         android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="@id/mainLayout"
@@ -80,8 +78,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/bebas_neue"
         android:singleLine="true"
-        android:text="Arijit Singh"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:textSize="25sp"
         android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="@id/mainLayout"
@@ -155,8 +152,8 @@
         android:layout_marginTop="50dp"
         android:alpha="0"
         android:padding="5dp"
-        android:progressTint="@color/black"
-        android:thumbTint="@color/black"
+        android:progressTint="?android:colorEdgeEffect"
+        android:thumbTint="?android:colorEdgeEffect"
         android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -243,10 +240,9 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/textsLayout"
         app:layout_constraintTop_toTopOf="@id/miniplayer_songImage"
-        app:tint="@color/black" />
+         />
 
     <LinearLayout
-
         android:id="@+id/textsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -265,8 +261,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/bebas_neue"
             android:singleLine="true"
-            android:text="Aabad Barbaad"
-            android:textColor="@color/black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="18sp" />
 
         <TextView
@@ -276,29 +271,27 @@
             android:ellipsize="end"
             android:fontFamily="@font/bebas_neue"
             android:singleLine="true"
-            android:text="Arijit Singh"
-            android:textColor="@color/black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="14sp" />
     </LinearLayout>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/miniplayer"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginBottom="-20dp"
-        android:background="@color/pink1"
+        android:background="?attr/color"
         android:clickable="true"
         android:orientation="vertical"
-        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="@id/mainLayout"
         app:layout_constraintStart_toStartOf="@id/mainLayout"
         app:layout_constraintTop_toTopOf="@id/mainLayout"
         app:layout_constraintVertical_bias="1">
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavBar"
