@@ -82,8 +82,8 @@
         <Constraint
             android:id="@+id/miniplayer_songImage"
             motion:layout_constraintEnd_toEndOf="@+id/miniplayer"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             motion:layout_constraintBottom_toBottomOf="@+id/miniplayer"
             motion:layout_constraintVertical_bias="0.25"
             motion:layout_constraintTop_toTopOf="@id/miniplayer"

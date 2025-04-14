@@ -1,6 +1,7 @@
 package com.xceptions.playlist.views.user
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +13,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.squareup.picasso.Picasso
+import com.xceptions.playlist.BuildConfig
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.ActivityUserBinding
 import com.xceptions.playlist.utils.SecurePrefManager
+import com.xceptions.playlist.viewmodel.user.MusicPlayerService
 import com.xceptions.playlist.viewmodel.user.UserActivityViewModel
 import com.xceptions.playlist.viewmodel.user.UserViewModelFactory
 
@@ -89,30 +93,68 @@ class UserActivity : AppCompatActivity() {
 
         viewModel.currentSongId.observe(this) { response ->
             if (response != null) {
-                Toast.makeText(this, "Found", Toast.LENGTH_SHORT).show()
+                val songUrl = BuildConfig.BASE_URL+"stream/listen?id="+response.id
+                val startMusicIntent = Intent(this,MusicPlayerService::class.java).apply {
+                    action = MusicPlayerService.ACTION_PLAY
+                    putExtra(MusicPlayerService.EXTRA_SONG_URL,songUrl)
+                    putExtra(MusicPlayerService.EXTRA_BEARER_TOKEN,token)
+                }
+                ContextCompat.startForegroundService(this,startMusicIntent)
+                binding.miniplayerPlayPauseButton.setImageResource(R.drawable.icon_pause)
+                binding.miniplayerPlayPauseButton.isClickable=true
+                viewModel.isPlaying = true
                 binding.miniplayerSongName.text = response.name
                 binding.miniplayerArtistName.text = response.artist
                 Picasso.get().load(response.song_image_url).into(binding.miniplayerSongImage)
                 binding.extendedPlayerSongName.text = response.name
                 binding.extendedPlayerArtistName.text = response.artist
-                binding.miniplayerSongImage.alpha = 1F
-//                binding.linearLayout.visibility = View.VISIBLE
-//                binding.miniplayerPlayPauseButton.visibility = View.VISIBLE
-//                binding.textsLayout.visibility = View.VISIBLE
-//                binding.miniplayer.visibility = View.VISIBLE
-
-
             }
+        }
+        binding.extendedPlayerPlayPause.setOnClickListener {
+            togglePlayOrPause()
+        }
+
+        binding.miniplayerPlayPauseButton.setOnClickListener {
+            if(binding.miniplayerPlayPauseButton.isClickable){
+                togglePlayOrPause()
+            }
+        }
+
+        setActiveNavItem(viewModel.activeItemId!!)
+
+        binding.extendedPlayerPrevious.setOnClickListener {
+            viewModel.prevSong()
+
+        }
+        binding.extendedPlayerNext.setOnClickListener {
+            viewModel.nextSong()
         }
 
 
 
-
-        setActiveNavItem(viewModel.activeItemId!!)
-
-
-
     }
+
+    private fun togglePlayOrPause(){
+        if(viewModel.isPlaying){
+            val pauseMusicIntent = Intent(this,MusicPlayerService::class.java).apply {
+                action = MusicPlayerService.ACTION_PAUSE
+            }
+            ContextCompat.startForegroundService(this,pauseMusicIntent)
+            viewModel.isPlaying = false
+            binding.miniplayerPlayPauseButton.setImageResource(R.drawable.icon_play)
+            binding.extendedPlayerPlayPause.setImageResource(R.drawable.icon_play)
+        }
+        else{
+            val playPausedSong = Intent(this,MusicPlayerService::class.java).apply {
+                action = MusicPlayerService.ACTION_PLAY_SONG
+            }
+            ContextCompat.startForegroundService(this,playPausedSong)
+            binding.extendedPlayerPlayPause.setImageResource(R.drawable.icon_pause)
+            viewModel.isPlaying = true
+            binding.miniplayerPlayPauseButton.setImageResource(R.drawable.icon_pause)
+        }
+    }
+
 
 
     private fun setActiveNavItem(selectedItemId: Int) {

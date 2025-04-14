@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xceptions.playlist.R
 import com.xceptions.playlist.model.song.MiniPlayerSong
+import com.xceptions.playlist.model.song.NextSong
 import com.xceptions.playlist.repository.UserRepository
 import kotlinx.coroutines.launch
 import java.util.LinkedList
@@ -23,37 +24,68 @@ class UserActivityViewModel(token:String):ViewModel() {
     private val songsLL =LinkedList<Int>()
     private val songsSet = mutableSetOf<Int>()
 
+    var isPlaying : Boolean = false
+
 
     fun playSong(songId : Int,autoPlay:Boolean = false,isPrevious:Boolean = false){
         viewModelScope.launch {
-            Log.d("miniPlayer","Fetch Details for Song With Id: $songId")
-            userRepository.getSongsById(songId)
-            Log.d("miniplayer","Fetched Details")
-            if(!autoPlay){
-                songsLL.clear()
-                songsLL.add(songId)
+
+            if(isPrevious){
+                userRepository.getSongsById(songId)
             }
-            songsSet.add(songId)
-            if(!isPrevious){
-                if(songsLL.size<3){
-                    var nextSong = fetchNextSong(songId)
-                    while(songsSet.contains(nextSong)){
-                        nextSong = fetchNextSong(songId)
-                    }
-                    songsLL.add(nextSong)
+            else{
+                userRepository.getSongsById(songId)
+                if(!autoPlay && !isPrevious){
+                    songsLL.clear()
+                    songsSet.clear()
+                    songsLL.add(songId)
                 }
+                if(songsSet.contains(songId)){
+//                    Log.d("miniplayer","dupicated song in set $songId")
+                    songsSet.remove(songId)
+                    songsSet.add(songId)
+                }
+                else{
+                    songsSet.add(songId)
+                }
+                if(!isPrevious){
+                    if(songsLL.size<2){
+//                        Log.d("miniplayer","Initiatd getting next song")
+                        var nextSong = userRepository.getNextSong(NextSong(songId,songsSet.toList()))
+                        if (nextSong == 0){
+
+//                            Log.d("miniplayer","got next song as 0")
+                            songsSet.clear()
+                            songsLL.add(previousSongsStack[0])
+//                            Log.d("miniplayer","new ll as $songsLL")
+                        }
+                        else{
+                            songsLL.add(nextSong)
+                        }
+//                        Log.d("miniplayer","Added next song to ll : $songsLL")
+                    }
+                }
+
             }
+
         }
     }
-    fun play(){
-        Log.d("miniPlayer","play the paused song")
-    }
-    fun pause(){
-        Log.d("miniPlayer","pause the playing song")
-    }
+
+
 
     fun nextSong(){
+        previousSongsStack.add(songsLL.removeFirst())
+        songsLL.peek()?.let { playSong(it,true) }
+    }
 
+    fun prevSong(){
+        if(!previousSongsStack.isEmpty()){
+            songsLL.addFirst(previousSongsStack.pop())
+            songsLL.peek()?.let { playSong(it,true,isPrevious=true) }
+        }
+        else{
+            Log.d("miniplayer","No prev avl")
+        }
     }
 
     init {
@@ -64,27 +96,6 @@ class UserActivityViewModel(token:String):ViewModel() {
         activeItemId = navItemId
     }
 
-    fun fetchNextSong(currentSongId : Int):Int{
-        var newSongId : Int = -1
-        while (songsSet.contains(newSongId)){
-
-            newSongId = -1 // get new id api call
-
-            if(newSongId == 0){
-                //no songs left in db reset the player
-                val nextSng:Int= previousSongsStack[0]
-                previousSongsStack.clear()
-                songsSet.clear()
-                return nextSng
-            }
-        }
-        return newSongId
-    }
-
-    fun addSongToLL(songId:Int){
-        songsLL.add(songId)
-        songsSet.add(songId)
-    }
 
 
 }
