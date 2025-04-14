@@ -7,14 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentArtistBinding
 import com.xceptions.playlist.databinding.FragmentUserHomeBinding
 import com.xceptions.playlist.utils.ArtistSongAdapter
+import com.xceptions.playlist.utils.OnSongClickListener
 import com.xceptions.playlist.utils.SecurePrefManager
 import com.xceptions.playlist.viewmodel.user.ArtistViewModel
+import com.xceptions.playlist.viewmodel.user.UserActivityViewModel
 import com.xceptions.playlist.viewmodel.user.UserHomeViewModel
 import com.xceptions.playlist.viewmodel.user.UserViewModelFactory
 import com.xceptions.playlist.views.AdminLoginFragmentArgs
@@ -25,6 +28,7 @@ class ArtistFragment : Fragment() {
     private val token: String by lazy { SecurePrefManager.getJwtToken(requireContext()) ?: "null" }
     private val binding get() = _binding!!
     private val viewModel: ArtistViewModel by viewModels{ UserViewModelFactory(token) }
+    private val viewModelActivity : UserActivityViewModel by activityViewModels{UserViewModelFactory(token)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +50,11 @@ class ArtistFragment : Fragment() {
         viewModel.songsByArtist.observe(viewLifecycleOwner){response->
             Log.d("artist",response.toString())
             if(response != null && response.size !=0){
-                binding.artistSongsRecycler.adapter = ArtistSongAdapter(response)
+                binding.artistSongsRecycler.adapter = ArtistSongAdapter(response,object : OnSongClickListener{
+                    override fun onClick(songId: Int) {
+                        viewModelActivity.playSong(songId)
+                    }
+                })
                 binding.progressBar.visibility = View.GONE
                 binding.artistSongsRecycler.visibility = View.VISIBLE
             }

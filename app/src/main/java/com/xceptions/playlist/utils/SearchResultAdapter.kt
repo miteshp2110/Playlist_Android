@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
@@ -15,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchResultAdapter(private val searches : SearchSongs,private val viewModel : UserSearchViewModel) : RecyclerView.Adapter<SearchResultAdapter.SearchViewHolder>() {
+class SearchResultAdapter(private val searches : SearchSongs,private val viewModel : UserSearchViewModel,private val onSongClickListener: OnSongClickListener) : RecyclerView.Adapter<SearchResultAdapter.SearchViewHolder>() {
 
     inner class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val songName : TextView = itemView.findViewById(R.id.searchSongName)
@@ -24,6 +25,7 @@ class SearchResultAdapter(private val searches : SearchSongs,private val viewMod
         val favIcon : ImageView = itemView.findViewById(R.id.searchFavIcon)
         val songDuration : TextView = itemView.findViewById(R.id.searchSongDuration)
         val favId : TextView = itemView.findViewById(R.id.favId)
+        val songCard : CardView = itemView.findViewById(R.id.searchSongId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultAdapter.SearchViewHolder {
@@ -73,6 +75,9 @@ class SearchResultAdapter(private val searches : SearchSongs,private val viewMod
         val secInt : Int = dur - min*60
         val secStr : String = min.toString()+":"+if(secInt<10){"0"+secInt.toString()}else{secInt.toString()}
         holder.songDuration.text = secStr
+        holder.songCard.setOnClickListener {
+            onSongClickListener.onClick(search.songId)
+        }
 
     }
 

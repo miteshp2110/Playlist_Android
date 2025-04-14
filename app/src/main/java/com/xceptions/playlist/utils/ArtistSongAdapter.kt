@@ -8,18 +8,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
 import com.xceptions.playlist.model.song.GetAllSongs
 import com.xceptions.playlist.model.song.GetSongsByArtist
 
-class ArtistSongAdapter(private val songs : GetSongsByArtist) : RecyclerView.Adapter<ArtistSongAdapter.SongViewHolder>() {
+class ArtistSongAdapter(private val songs : GetSongsByArtist,private val onSongClickListener: OnSongClickListener) : RecyclerView.Adapter<ArtistSongAdapter.SongViewHolder>() {
 
     inner class SongViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val songName : TextView = itemView.findViewById(R.id.artistSongName)
         val songCoverImage : ImageView = itemView.findViewById(R.id.artistSongImage)
-//        val artistSongCard : LinearLayout = itemView.findViewById(R.id.artistCardId)
+        val artistSongCard : CardView = itemView.findViewById(R.id.cardArtistSong)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistSongAdapter.SongViewHolder {
@@ -34,6 +35,10 @@ class ArtistSongAdapter(private val songs : GetSongsByArtist) : RecyclerView.Ada
         Picasso.get()
             .load(imgUrl)
             .into(holder.songCoverImage)
+
+        holder.artistSongCard.setOnClickListener {
+            onSongClickListener.onClick(song.id)
+        }
 
     }
 

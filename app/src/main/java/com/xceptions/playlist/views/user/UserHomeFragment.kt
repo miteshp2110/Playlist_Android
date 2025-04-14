@@ -82,7 +82,12 @@ class UserHomeFragment : Fragment() {
 
             }
             else{
-                val favAdapter = FavouriteAdapter(response)
+                val favAdapter = FavouriteAdapter(response,object : OnSongClickListener{
+                    override fun onClick(songId: Int) {
+                        viewModelActivity.playSong(songId)
+                    }
+
+                })
                 binding.favouriteRecycler.adapter = favAdapter
 
             }
@@ -95,7 +100,12 @@ class UserHomeFragment : Fragment() {
 
             }
             else{
-                val recentAdapter = FavouriteAdapter(response)
+                val recentAdapter = FavouriteAdapter(response,object : OnSongClickListener{
+                    override fun onClick(songId: Int) {
+                        viewModelActivity.playSong(songId)
+                    }
+
+                })
                 binding.recentRecycler.adapter = recentAdapter
 
             }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
@@ -14,13 +15,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AllFavAdapter(private val favs : GetAllFavourites,private val viewModel : FavouritesViewModel) : RecyclerView.Adapter<AllFavAdapter.SearchViewHolder>() {
+class AllFavAdapter(private val favs : GetAllFavourites,private val viewModel : FavouritesViewModel,private val onSongClickListener: OnSongClickListener) : RecyclerView.Adapter<AllFavAdapter.SearchViewHolder>() {
 
     inner class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val songName : TextView = itemView.findViewById(R.id.allFavSongName)
         val artistName : TextView = itemView.findViewById(R.id.allFavArtistName)
         val songCoverImage : ImageView = itemView.findViewById(R.id.allFavSongImage)
         val favIcon : ImageView = itemView.findViewById(R.id.allFavDelIcon)
+        val favCard : CardView = itemView.findViewById(R.id.allFavSongId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllFavAdapter.SearchViewHolder {
@@ -38,6 +40,9 @@ class AllFavAdapter(private val favs : GetAllFavourites,private val viewModel : 
             CoroutineScope(Dispatchers.Main).launch {
                 viewModel.removeSongFromFav(fav)
             }
+        }
+        holder.favCard.setOnClickListener {
+            onSongClickListener.onClick(fav.songId)
         }
 
         val imgUrl = fav.song_image_url
