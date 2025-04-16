@@ -96,6 +96,17 @@ class UserActivityViewModel(token:String):ViewModel() {
         activeItemId = navItemId
     }
 
+    fun playPlaylist(id:Int){
+        viewModelScope.launch {
+            previousSongsStack.clear()
+            songsSet.clear()
+            songsLL.clear()
+            val playListSongs = userRepository.getPlaylistSongs(id)!!
+            songsLL.addAll(playListSongs)
+            playSong(songsLL.peek()!!, isPrevious = true)
+        }
+    }
+
 
 
 }

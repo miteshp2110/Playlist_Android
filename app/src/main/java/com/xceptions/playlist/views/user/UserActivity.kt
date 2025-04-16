@@ -6,10 +6,13 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
+import android.view.View
 import android.widget.SeekBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.squareup.picasso.Picasso
@@ -65,6 +68,7 @@ class UserActivity : AppCompatActivity(), MusicPlayerService.OnProgressUpdateLis
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         if (navHostFragment != null) {
@@ -138,6 +142,12 @@ class UserActivity : AppCompatActivity(), MusicPlayerService.OnProgressUpdateLis
                 Picasso.get().load(response.song_image_url).into(binding.miniplayerSongImage)
                 binding.extendedPlayerSongName.text = response.name
                 binding.extendedPlayerArtistName.text = response.artist
+
+
+//                binding.miniplayer.isVisible= true
+//                binding.textsLayout.isVisible = true
+//                binding.miniplayerSongImage.isVisible = true
+//                binding.miniplayerPlayPauseButton.isVisible = true
 
                 // Reset seekbar when new song starts
                 binding.extendedPlayerSeekBar.progress = 0

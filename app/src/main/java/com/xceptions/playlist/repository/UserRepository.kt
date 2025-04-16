@@ -49,6 +49,23 @@ class UserRepository(private val token : String) {
     private val _getSongById = MutableLiveData<MiniPlayerSong?>()
     val getSongById : LiveData<MiniPlayerSong?> = _getSongById
 
+    suspend fun getPlaylistSongs(id : Int):ArrayList<Int>?{
+
+        return try{
+            val response = apiService.getPlaylistSongs(id)
+            if(response.isSuccessful){
+                response.body()
+            }
+            else{
+                null
+            }
+        }
+        catch (e:Exception){
+            Log.d("playlist",e.toString())
+            null
+        }
+    }
+
 
     suspend fun getNextSong(nextSong : NextSong) : Int {
 

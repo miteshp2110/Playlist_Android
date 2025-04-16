@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 import com.xceptions.playlist.R
 import com.xceptions.playlist.model.playlist.GetAllPlaylist
 
-class PlaylistAdapter(private val playlists : GetAllPlaylist) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
+class PlaylistAdapter(private val playlists : GetAllPlaylist,private val onSongClickListener: OnSongClickListener) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
     inner class PlaylistViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val playlistName : TextView = itemView.findViewById(R.id.playlistName)
@@ -43,11 +43,12 @@ class PlaylistAdapter(private val playlists : GetAllPlaylist) : RecyclerView.Ada
         holder.playlistDuration.text = secStr
 
         holder.playlistPlayButton.setOnClickListener{
-            Log.d("playlist","play the playlist with id : "+playlistItem.playlist_id)
+            onSongClickListener.onClick(playlistItem.playlist_id)
         }
         holder.playlistCardId.setOnClickListener{
             Log.d("playlist","open the playlist with id : "+playlistItem.playlist_id)
         }
+
 
     }
 

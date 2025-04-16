@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xceptions.playlist.R
 import com.xceptions.playlist.databinding.FragmentUserPlaylistBinding
+import com.xceptions.playlist.utils.OnSongClickListener
 import com.xceptions.playlist.utils.PlaylistAdapter
 import com.xceptions.playlist.utils.SecurePrefManager
+import com.xceptions.playlist.viewmodel.user.UserActivityViewModel
 import com.xceptions.playlist.viewmodel.user.UserPlaylistViewModel
 import com.xceptions.playlist.viewmodel.user.UserViewModelFactory
 
@@ -27,6 +30,7 @@ class UserPlaylistFragment : Fragment() {
     private val viewModel: UserPlaylistViewModel by viewModels {
         UserViewModelFactory(token)
     }
+    private val viewModelActivity : UserActivityViewModel by activityViewModels{UserViewModelFactory(token)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +59,11 @@ class UserPlaylistFragment : Fragment() {
                 binding.noListText.visibility = View.GONE
                 binding.playlistRecycler.visibility = View.VISIBLE
                 binding.playlistRecycler.layoutManager = LinearLayoutManager(requireContext())
-                binding.playlistRecycler.adapter = PlaylistAdapter(response)
+                binding.playlistRecycler.adapter = PlaylistAdapter(response,object:OnSongClickListener{
+                    override fun onClick(songId: Int) {
+                        viewModelActivity.playPlaylist(songId)
+                    }
+                })
             }
         }
 

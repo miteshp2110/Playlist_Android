@@ -19,6 +19,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserApiService {
@@ -59,4 +60,7 @@ interface UserApiService {
 
     @POST("song/next")
     suspend fun getNextSong(@Body b : NextSong) : Response<NextSongResponse>
+
+    @GET("playlist/get/{playlistId}")
+    suspend fun getPlaylistSongs(@Path("playlistId")id : Int) : Response<ArrayList<Int>>
 }
